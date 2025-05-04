@@ -110,7 +110,7 @@ const Footer = ({ id }) => {
             © {new Date().getFullYear()} Lucfra. Todos los derechos reservados.
           </p>
           <p className="mt-2">
-            Diseñado con ❤️ por{" "}
+            Diseñado por{" "}
             <a
               href="https://www.linkedin.com/in/luis-patty-mamani/"
               target="_blank"

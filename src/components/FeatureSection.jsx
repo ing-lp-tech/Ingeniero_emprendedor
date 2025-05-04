@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 
 const ProductSection = ({ id, cart, addToCart }) => {
   return (
-    <section id="productos" className="py-12 px-4 md:px-8 bg-gray-50">
-      <div id={id} className="relative mt-20 min-h-[800px]">
+    <section id="productos" className="py-6 px-4 md:px-8 bg-gray-50">
+      <div id={id} className="relative mt-4 min-h-[800px]">
         <div className="text-center">
           <span className="bg-blue-600 text-white rounded-full h-6 text-sm font-medium px-2 py-1 uppercase">
             Catálogo
@@ -114,6 +114,78 @@ const ProductSection = ({ id, cart, addToCart }) => {
               </div>
             </div>
           ))}
+        </div>
+        <div className="mt-24 grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="bg-white p-8 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition">
+            <div className="bg-blue-100 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
+              <svg
+                className="w-6 h-6 text-blue-600"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M13 10V3L4 14h7v7l9-11h-7z"
+                ></path>
+              </svg>
+            </div>
+            <h3 className="text-xl font-semibold mb-3">
+              Velocidad de impresión
+            </h3>
+            <p className="text-gray-600">
+              Plotters de alta velocidad que reducen tus tiempos de producción
+              hasta en un 60% comparado con métodos tradicionales.
+            </p>
+          </div>
+
+          <div className="bg-white p-8 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition">
+            <div className="bg-blue-100 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
+              <svg
+                className="w-6 h-6 text-blue-600"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
+                ></path>
+              </svg>
+            </div>
+            <h3 className="text-xl font-semibold mb-3">Papel especializado</h3>
+            <p className="text-gray-600">
+              Nuestros rollos de papel para tizado ofrecen la resistencia y
+              flexibilidad perfecta para el trabajo con patrones.
+            </p>
+          </div>
+
+          <div className="bg-white p-8 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition">
+            <div className="bg-blue-100 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
+              <svg
+                className="w-6 h-6 text-blue-600"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                ></path>
+              </svg>
+            </div>
+            <h3 className="text-xl font-semibold mb-3">Soporte técnico</h3>
+            <p className="text-gray-600">
+              Asesoramiento permanente por expertos en patronaje digital.
+              Instalación, capacitación y mantenimiento incluido.
+            </p>
+          </div>
         </div>
       </div>
     </section>

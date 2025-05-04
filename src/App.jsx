@@ -25,7 +25,7 @@ const App = () => {
   return (
     <Router basename="/LucfraIng">
       <Navbar />
-      <div className="max-w-7xl mx-auto pt-0 px-6">
+      <div className="max-w-7xl mx-auto pt-0 px-0">
         <WhatsAppButton />
 
         <Routes>
