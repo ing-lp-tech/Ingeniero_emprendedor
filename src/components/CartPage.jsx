@@ -5,12 +5,14 @@ const CartPage = ({ cart, removeFromCart }) => {
   const total = cart.reduce((sum, item) => sum + item.price, 0);
 
   return (
-    <div className="py-8">
+    <div className="py-8 px-4">
       <div className="flex items-center mb-8">
         <Link to="/" className="mr-4 text-blue-600 hover:text-blue-800">
           <ArrowLeft className="h-6 w-6" />
         </Link>
-        <h1 className="text-3xl font-bold">Tu Carrito de Compras</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold">
+          Tu Carrito de Compras
+        </h1>
       </div>
 
       {cart.length === 0 ? (
@@ -25,33 +27,57 @@ const CartPage = ({ cart, removeFromCart }) => {
           </Link>
         </div>
       ) : (
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2">
             {cart.map((item) => (
               <div
                 key={item.id}
-                className="border-b py-6 flex flex-col sm:flex-row"
+                className="border-b py-4 flex items-start gap-4 sm:flex-row"
               >
-                <div className="flex-shrink-0 mb-4 sm:mb-0 sm:mr-6">
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    className="h-32 w-32 object-cover rounded-lg"
-                  />
-                </div>
-                <div className="flex-grow">
-                  <div className="flex justify-between">
-                    <h3 className="text-xl font-medium">{item.name}</h3>
-                    <button
-                      onClick={() => removeFromCart(item.cartItemId)}
-                      className="text-red-500 hover:text-red-700"
-                    >
-                      Eliminar
-                    </button>
-                  </div>
-                  <p className="text-gray-600 mt-1">{item.description}</p>
-                  <p className="text-lg font-bold mt-2">
-                    ${item.price.toLocaleString()}
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  className="w-24 h-24 object-cover rounded-lg flex-shrink-0"
+                />
+                <div className="flex flex-col w-full relative">
+                  {/* <button
+                    onClick={() => removeFromCart(item.cartItemId)}
+                    className="text-sm text-red-500 hover:text-red-700 absolute top-0 right-0"
+                  >
+                    Eliminar
+                  </button> */}
+                  <h3 className="text-base sm:text-lg font-medium pr-12">
+                    {item.name}
+                  </h3>
+                  <p className="text-gray-600 text-sm sm:text-base mt-1 line-clamp-2">
+                    {item.description}
+                  </p>
+                  <p className="text-base sm:text-lg font-bold mt-2">
+                    <div className="flex items-center justify-around mt-2">
+                      <p className="text-lg font-bold">
+                        ${item.price.toLocaleString()}
+                      </p>
+                      <button
+                        onClick={() => removeFromCart(item.cartItemId)}
+                        className="flex items-center gap-2 text-sm text-red-600 bg-red-100 hover:bg-red-200 px-3 py-1.5 rounded-full font-medium transition"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-4 w-4"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          strokeWidth={2}
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M6 18L18 6M6 6l12 12"
+                          />
+                        </svg>
+                        Eliminar
+                      </button>
+                    </div>
                   </p>
                 </div>
               </div>
