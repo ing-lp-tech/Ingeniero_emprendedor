@@ -1,9 +1,5 @@
-// FAQ.jsx
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
-/* import { faqData } from "./index";
-import { faqData } from "../constants"; */
-/* import { faqData } from "./index.jsx"; */
 import { faqData } from "../constants";
 
 export default function FAQ() {

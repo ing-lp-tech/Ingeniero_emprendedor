@@ -12,7 +12,6 @@ const AboutUsSection = () => {
         backgroundPosition: "center",
       }}
     >
-      {/* Capa oscura sutil para mejorar contraste */}
       <div className="absolute inset-0 bg-black bg-opacity-50"></div>
 
       {/* Contenido superpuesto */}
