@@ -2,7 +2,7 @@ import { MessageCircle } from "lucide-react";
 import whatsapp from "../assets/whatsapp.svg";
 
 const WhatsAppButton = () => {
-  const phoneNumber = "5491162020911";
+  const phoneNumber = "5491126243310";
   const defaultMessage = "Hola, me gustaría obtener más información.";
 
   // URL de WhatsApp
