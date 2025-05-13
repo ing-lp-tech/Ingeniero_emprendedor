@@ -101,7 +101,7 @@ const CartPage = ({ cart, removeFromCart }) => {
                 <span>${total.toLocaleString()}</span>
               </div>
               <a
-                href={`https://wa.me/5491126243310?text=${encodeURIComponent(
+                href={`https://wa.me/5491162020911?text=${encodeURIComponent(
                   `¡Hola! Quiero realizar esta compra:\n\n` +
                     cart
                       .map(
