@@ -1,8 +1,11 @@
 import { products } from "../constants";
+import { plotters } from "../constants";
 import { ShoppingCart } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const ProductSection = ({ id, cart, addToCart }) => {
+  const allPlotters = [...plotters.inyeccion, ...plotters.corte];
+
   return (
     <section id="productos" className="py-6 px-4 md:px-8 bg-gray-50">
       <div id={id} className="relative mt-4 min-h-[800px]">
@@ -29,92 +32,193 @@ const ProductSection = ({ id, cart, addToCart }) => {
           </span>
         </Link>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-10 lg:mt-20 px-4">
-          {products.map((product) => (
-            <div
-              key={product.id}
-              className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition"
-            >
-              <div className="h-48 overflow-hidden">
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className="w-full h-full object-cover"
-                />
-              </div>
+        {/* Sección de Plotters */}
+        <div className="mt-16 text-center">
+          <h3 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-8">
+            <span className="border-b-4 border-blue-500 pb-2">
+              Nuestros Plotters
+            </span>
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
+            {allPlotters.map((plotter) => (
+              <div
+                key={plotter.id}
+                className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition"
+              >
+                <div className="h-48 overflow-hidden">
+                  <img
+                    src={plotter.image}
+                    alt={plotter.nombre}
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src =
+                        "https://via.placeholder.com/300x200?text=Plotter+Image";
+                    }}
+                  />
+                </div>
 
-              <div className="p-6 flex flex-col justify-between h-full">
-                <div>
-                  <div className="flex justify-between items-start">
-                    <h3 className="text-xl font-bold text-gray-900">
-                      {product.name}
-                    </h3>
-                    <span className="bg-blue-100 text-blue-800 text-sm font-semibold px-2.5 py-0.5 rounded">
-                      {product.category}
-                    </span>
-                  </div>
-
-                  <p className="mt-2 text-gray-600">{product.description}</p>
-
-                  {/* Precios y botones por combo */}
-                  <div className="mt-4 text-sm text-gray-700 space-y-2">
-                    <div className="flex items-center justify-between">
-                      <p>
-                        Combo 5u: ${product.combos.combo5u.toLocaleString()}
-                      </p>
-                      <button
-                        onClick={() =>
-                          addToCart({
-                            ...product,
-                            quantity: 5,
-                            price: product.combos.combo5u,
-                          })
-                        }
-                        className="bg-blue-600 text-white text-xs px-3 py-1 rounded hover:bg-blue-700"
+                <div className="p-6 flex flex-col justify-between h-full">
+                  <div>
+                    <div className="flex justify-between items-start">
+                      <h3 className="text-xl font-bold text-gray-900">
+                        {plotter.nombre}
+                      </h3>
+                      <span
+                        className={`${
+                          plotter.id <= 4
+                            ? "bg-blue-100 text-blue-800"
+                            : "bg-green-100 text-green-800"
+                        } text-sm font-semibold px-2.5 py-0.5 rounded`}
                       >
-                        Añadir
-                      </button>
+                        {plotter.id <= 4 ? "Inyección" : "Corte"}
+                      </span>
                     </div>
-                    <div className="flex items-center justify-between">
-                      <p>
-                        Combo 15u: ${product.combos.combo15u.toLocaleString()}
-                      </p>
-                      <button
-                        onClick={() =>
-                          addToCart({
-                            ...product,
-                            quantity: 15,
-                            price: product.combos.combo15u,
-                          })
-                        }
-                        className="bg-blue-600 text-white text-xs px-3 py-1 rounded hover:bg-blue-700"
-                      >
-                        Añadir
-                      </button>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <p>
-                        Combo 30u: ${product.combos.combo30u.toLocaleString()}
-                      </p>
-                      <button
-                        onClick={() =>
-                          addToCart({
-                            ...product,
-                            quantity: 30,
-                            price: product.combos.combo30u,
-                          })
-                        }
-                        className="bg-blue-600 text-white text-xs px-3 py-1 rounded hover:bg-blue-700"
-                      >
-                        Añadir
-                      </button>
+
+                    <p className="mt-2 text-gray-600">{plotter.descripcion}</p>
+
+                    <div className="mt-4 text-sm text-gray-700 space-y-2">
+                      <div className="flex items-center justify-between">
+                        <p>
+                          <span className="font-semibold">Pre-venta:</span> $
+                          {plotter.precio_pre_venta.toLocaleString()}
+                        </p>
+                        <button
+                          onClick={() =>
+                            addToCart({
+                              ...plotter,
+                              quantity: 1,
+                              price: plotter.precio_pre_venta,
+                              name: plotter.nombre,
+                            })
+                          }
+                          className="bg-blue-600 text-white text-xs px-3 py-1 rounded hover:bg-blue-700 transition"
+                        >
+                          Añadir
+                        </button>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <p>
+                          <span className="font-semibold">De llegada:</span> $
+                          {plotter.precio_de_llegada.toLocaleString()}
+                        </p>
+                        <button
+                          onClick={() =>
+                            addToCart({
+                              ...plotter,
+                              quantity: 1,
+                              price: plotter.precio_de_llegada,
+                              name: plotter.nombre,
+                            })
+                          }
+                          className="bg-green-600 text-white text-xs px-3 py-1 rounded hover:bg-green-700 transition"
+                        >
+                          Añadir
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
+
+        {/* Sección de Papeles */}
+        <div className="mt-16 text-center">
+          <h3 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-8">
+            <span className="border-b-4 border-blue-500 pb-2">
+              Nuestros Papeles
+            </span>
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
+            {products.map((product) => (
+              <div
+                key={product.id}
+                className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition"
+              >
+                <div className="h-48 overflow-hidden">
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+
+                <div className="p-6 flex flex-col justify-between h-full">
+                  <div>
+                    <div className="flex justify-between items-start">
+                      <h3 className="text-xl font-bold text-gray-900">
+                        {product.name}
+                      </h3>
+                      <span className="bg-blue-100 text-blue-800 text-sm font-semibold px-2.5 py-0.5 rounded">
+                        {product.category}
+                      </span>
+                    </div>
+
+                    <p className="mt-2 text-gray-600">{product.description}</p>
+
+                    <div className="mt-4 text-sm text-gray-700 space-y-2">
+                      <div className="flex items-center justify-between">
+                        <p>
+                          Combo 5u: ${product.combos.combo5u.toLocaleString()}
+                        </p>
+                        <button
+                          onClick={() =>
+                            addToCart({
+                              ...product,
+                              quantity: 5,
+                              price: product.combos.combo5u,
+                            })
+                          }
+                          className="bg-blue-600 text-white text-xs px-3 py-1 rounded hover:bg-blue-700"
+                        >
+                          Añadir
+                        </button>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <p>
+                          Combo 15u: ${product.combos.combo15u.toLocaleString()}
+                        </p>
+                        <button
+                          onClick={() =>
+                            addToCart({
+                              ...product,
+                              quantity: 15,
+                              price: product.combos.combo15u,
+                            })
+                          }
+                          className="bg-blue-600 text-white text-xs px-3 py-1 rounded hover:bg-blue-700"
+                        >
+                          Añadir
+                        </button>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <p>
+                          Combo 30u: ${product.combos.combo30u.toLocaleString()}
+                        </p>
+                        <button
+                          onClick={() =>
+                            addToCart({
+                              ...product,
+                              quantity: 30,
+                              price: product.combos.combo30u,
+                            })
+                          }
+                          className="bg-blue-600 text-white text-xs px-3 py-1 rounded hover:bg-blue-700"
+                        >
+                          Añadir
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Sección de características */}
         <div className="mt-24 grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="bg-white p-8 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition">
             <div className="bg-blue-100 w-12 h-12 rounded-lg flex items-center justify-center mb-4">

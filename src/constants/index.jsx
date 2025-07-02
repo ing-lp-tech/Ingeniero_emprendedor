@@ -7,6 +7,8 @@ import { GlobeLock } from "lucide-react";
 
 import papelMadera1 from ".././assets/papelMadera2.jpg";
 import papelBlanco2 from ".././assets/papelBlanco2.jpg";
+import injectplotter from ".././assets/injectplotter.jpg";
+import plotterdecorte from ".././assets/plotterdecorte.jpg";
 
 export const navItems = [
   { label: "Inicio", href: "#inicio" }, // Agregar #
@@ -57,12 +59,12 @@ export const products = [
     name: "MARRÓN 91,5 X 75MTS 60GRS",
     category: "Papel marrón",
     description: "Papel marrón para tizado, ideal para patrones de confección.",
-    price: 12002,
+    price: 12000,
     image: papelMadera1,
     combos: {
-      combo5u: 12002,
-      combo15u: 11506,
-      combo30u: 11016,
+      combo5u: 12000,
+      combo15u: 11500,
+      combo30u: 11000,
     },
   },
   {
@@ -70,12 +72,12 @@ export const products = [
     name: "MARRÓN 1,07 X 75MTS 60GRS",
     category: "Papel marrón",
     description: "Papel marrón de mayor ancho para trazos amplios.",
-    price: 13944,
+    price: 13950,
     image: papelMadera1,
     combos: {
-      combo5u: 13944,
-      combo15u: 13367,
-      combo30u: 12798,
+      combo5u: 13950,
+      combo15u: 13400,
+      combo30u: 12800,
     },
   },
   {
@@ -83,12 +85,12 @@ export const products = [
     name: "MARRÓN 1,6 X 200MTS 60GRS",
     category: "Papel marrón",
     description: "Rollo largo y ancho para producción industrial.",
-    price: 42890,
+    price: 42900,
     image: papelMadera1,
     combos: {
-      combo5u: 42890,
-      combo15u: 41116,
-      combo30u: 39366,
+      combo5u: 42900,
+      combo15u: 41100,
+      combo30u: 39400,
     },
   },
   {
@@ -96,12 +98,12 @@ export const products = [
     name: "MARRÓN 1,8 X 200MTS 60GRS",
     category: "Papel marrón",
     description: "Ideal para producción a gran escala.",
-    price: 48008,
+    price: 48000,
     image: papelMadera1,
     combos: {
-      combo5u: 48008,
-      combo15u: 46022,
-      combo30u: 44064,
+      combo5u: 48000,
+      combo15u: 46000,
+      combo30u: 44100,
     },
   },
   {
@@ -109,12 +111,12 @@ export const products = [
     name: "MARRÓN 1,85 X 200MTS 60GRS",
     category: "Papel marrón",
     description: "Máximo ancho para cortes amplios y largos.",
-    price: 49244,
+    price: 49250,
     image: papelMadera1,
     combos: {
-      combo5u: 49244,
-      combo15u: 47207,
-      combo30u: 45198,
+      combo5u: 49250,
+      combo15u: 47200,
+      combo30u: 45200,
     },
   },
   {
@@ -122,12 +124,12 @@ export const products = [
     name: "BLANCO 91,5 X 75MTS 60GRS",
     category: "Papel blanco",
     description: "Papel blanco estándar para tizado técnico.",
-    price: 18709,
+    price: 18700,
     image: papelBlanco2,
     combos: {
-      combo5u: 18709,
-      combo15u: 17935,
-      combo30u: 17172,
+      combo5u: 18700,
+      combo15u: 17950,
+      combo30u: 17200,
     },
   },
   {
@@ -135,12 +137,12 @@ export const products = [
     name: "BLANCO 1,07 X 75MTS 60GRS",
     category: "Papel blanco",
     description: "Mayor ancho para trazos cómodos y precisos.",
-    price: 21357,
+    price: 21400,
     image: papelBlanco2,
     combos: {
-      combo5u: 21357,
-      combo15u: 20473,
-      combo30u: 19602,
+      combo5u: 21400,
+      combo15u: 20500,
+      combo30u: 19600,
     },
   },
   {
@@ -148,12 +150,12 @@ export const products = [
     name: "BLANCO 1,6 X 200MTS 60GRS",
     category: "Papel blanco",
     description: "Rollo blanco profesional para producción continua.",
-    price: 72718,
+    price: 72750,
     image: papelBlanco2,
     combos: {
-      combo5u: 72718,
-      combo15u: 69710,
-      combo30u: 66744,
+      combo5u: 72750,
+      combo15u: 69750,
+      combo30u: 66750,
     },
   },
   {
@@ -161,12 +163,12 @@ export const products = [
     name: "BLANCO 1,8 X 200MTS 60GRS",
     category: "Papel blanco",
     description: "Ancho extra para grandes diseños.",
-    price: 81543,
+    price: 81550,
     image: papelBlanco2,
     combos: {
-      combo5u: 81543,
-      combo15u: 78170,
-      combo30u: 74844,
+      combo5u: 81550,
+      combo15u: 78200,
+      combo30u: 74850,
     },
   },
   {
@@ -174,15 +176,85 @@ export const products = [
     name: "BLANCO 1,85 X 200MTS 60GRS",
     category: "Papel blanco",
     description: "La mayor cobertura para impresiones industriales.",
-    price: 83661,
+    price: 83700,
     image: papelBlanco2,
     combos: {
-      combo5u: 83661,
-      combo15u: 80201,
-      combo30u: 76788,
+      combo5u: 83700,
+      combo15u: 80200,
+      combo30u: 76800,
     },
   },
 ];
+
+export const plotters = {
+  inyeccion: [
+    {
+      id: 1,
+      nombre: "Inject Plotter 195cm HP45",
+      image: injectplotter,
+      precio_pre_venta: 3000,
+      precio_de_llegada: 4100,
+      descripcion:
+        "Plotter de inyección de tinta de 195cm con tecnología HP45 para tizado de patrones de ropa. Imprime en ambos sentidos (1m/min) y requiere cartuchos de tinta especializados. Ideal para talleres con alta demanda de producción.",
+    },
+    {
+      id: 2,
+      nombre: "Inject Plotter 195cm EPSON",
+      image: injectplotter,
+      precio_pre_venta: 3150,
+      precio_de_llegada: 4200,
+      descripcion:
+        "Plotter profesional de 195cm con cabezales Epson para tizado textil. Funciona con cartuchos de tinta y ofrece impresión bidireccional (1m/min). Perfecto para patrones detallados en confección de ropa.",
+    },
+    {
+      id: 3,
+      nombre: "Inject Plotter 200cm HP45",
+      image: injectplotter,
+      precio_pre_venta: 3450,
+      precio_de_llegada: 4600,
+      descripcion:
+        "Solución industrial de 200cm para tizado de patrones. Utiliza cartuchos HP45 y alcanza 1m/min en modo bidireccional. Para talleres que trabajan con prendas de gran tamaño.",
+    },
+    {
+      id: 4,
+      nombre: "Inject Plotter 200cm EPSON",
+      image: injectplotter,
+      precio_pre_venta: 3650,
+      precio_de_llegada: 4850,
+      descripcion:
+        "Plotter textil Epson de máxima capacidad (200cm). Opera con cartuchos de tinta especializados y ofrece alta velocidad (1m/min) para producción intensiva de patrones.",
+    },
+  ],
+  corte: [
+    {
+      id: 5,
+      nombre: "Cutting Plotter 100cm",
+      image: plotterdecorte,
+      precio_pre_venta: 650,
+      precio_de_llegada: 880,
+      descripcion:
+        "Plotter de corte de 100cm que funciona con lapiceras estándar (no requiere cartuchos). Gran ventaja económica: solo necesita lapiceras comunes para tizado de patrones. Ideal para emprendedores textiles.",
+    },
+    {
+      id: 6,
+      nombre: "Cutting Plotter 125cm",
+      image: plotterdecorte,
+      precio_pre_venta: 775,
+      precio_de_llegada: 1100,
+      descripcion:
+        "Sistema de corte de 125cm que utiliza lapiceras en lugar de cartuchos, reduciendo costos operativos. Perfecto para talleres que buscan economía sin sacrificar precisión en el tizado de moldes.",
+    },
+    {
+      id: 7,
+      nombre: "Cutting Plotter 190cm",
+      image: plotterdecorte,
+      precio_pre_venta: 1250,
+      precio_de_llegada: 1660,
+      descripcion:
+        "Único plotter de corte industrial de 190cm que trabaja con lapiceras comunes. No necesita cartuchos, ofreciendo el menor costo por patrón tizado. Solución profesional para grandes talleres de confección.",
+    },
+  ],
+};
 
 export const faqData = [
   /* {
