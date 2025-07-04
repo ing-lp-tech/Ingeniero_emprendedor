@@ -192,7 +192,7 @@ export const plotters = {
       id: 1,
       nombre: "Inject Plotter 195cm HP45",
       image: injectplotter,
-      precio_pre_venta: 3000,
+      precio_pre_venta: 3450,
       precio_de_llegada: 4100,
       descripcion:
         "Plotter de inyección de tinta de 195cm con tecnología HP45 para tizado de patrones de ropa. Imprime en ambos sentidos (1m/min) y requiere cartuchos de tinta especializados. Ideal para talleres con alta demanda de producción.",
@@ -201,7 +201,7 @@ export const plotters = {
       id: 2,
       nombre: "Inject Plotter 195cm EPSON",
       image: injectplotter,
-      precio_pre_venta: 3150,
+      precio_pre_venta: 3625,
       precio_de_llegada: 4200,
       descripcion:
         "Plotter profesional de 195cm con cabezales Epson para tizado textil. Funciona con cartuchos de tinta y ofrece impresión bidireccional (1m/min). Perfecto para patrones detallados en confección de ropa.",
@@ -210,7 +210,7 @@ export const plotters = {
       id: 3,
       nombre: "Inject Plotter 200cm HP45",
       image: injectplotter,
-      precio_pre_venta: 3450,
+      precio_pre_venta: 3970,
       precio_de_llegada: 4600,
       descripcion:
         "Solución industrial de 200cm para tizado de patrones. Utiliza cartuchos HP45 y alcanza 1m/min en modo bidireccional. Para talleres que trabajan con prendas de gran tamaño.",
@@ -219,7 +219,7 @@ export const plotters = {
       id: 4,
       nombre: "Inject Plotter 200cm EPSON",
       image: injectplotter,
-      precio_pre_venta: 3650,
+      precio_pre_venta: 4200,
       precio_de_llegada: 4850,
       descripcion:
         "Plotter textil Epson de máxima capacidad (200cm). Opera con cartuchos de tinta especializados y ofrece alta velocidad (1m/min) para producción intensiva de patrones.",
@@ -230,7 +230,7 @@ export const plotters = {
       id: 5,
       nombre: "Cutting Plotter 100cm",
       image: plotterdecorte,
-      precio_pre_venta: 650,
+      precio_pre_venta: 750,
       precio_de_llegada: 880,
       descripcion:
         "Plotter de corte de 100cm que funciona con lapiceras estándar (no requiere cartuchos). Gran ventaja económica: solo necesita lapiceras comunes para tizado de patrones. Ideal para emprendedores textiles.",
@@ -239,7 +239,7 @@ export const plotters = {
       id: 6,
       nombre: "Cutting Plotter 125cm",
       image: plotterdecorte,
-      precio_pre_venta: 775,
+      precio_pre_venta: 890,
       precio_de_llegada: 1100,
       descripcion:
         "Sistema de corte de 125cm que utiliza lapiceras en lugar de cartuchos, reduciendo costos operativos. Perfecto para talleres que buscan economía sin sacrificar precisión en el tizado de moldes.",
@@ -248,7 +248,7 @@ export const plotters = {
       id: 7,
       nombre: "Cutting Plotter 190cm",
       image: plotterdecorte,
-      precio_pre_venta: 1250,
+      precio_pre_venta: 1440,
       precio_de_llegada: 1660,
       descripcion:
         "Único plotter de corte industrial de 190cm que trabaja con lapiceras comunes. No necesita cartuchos, ofreciendo el menor costo por patrón tizado. Solución profesional para grandes talleres de confección.",
