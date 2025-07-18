@@ -1,5 +1,4 @@
-/* import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useState } from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import HeroSection from "./components/HeroSection";
 import ProductSection from "./components/FeatureSection";
@@ -11,23 +10,15 @@ import CartPage from "./components/CartPage";
 import ComunidadPage from "./components/ComunidadPage";
 import FAQ from "./components/Faq";
 
-const App = () => {
-  const [cart, setCart] = useState([]);
-
-  const addToCart = (product) => {
-    const uniqueItem = { ...product, cartItemId: crypto.randomUUID() };
-    setCart([...cart, uniqueItem]);
-  };
-
-  const removeFromCart = (cartItemId) => {
-    setCart(cart.filter((item) => item.cartItemId !== cartItemId));
-  };
+const AppContent = ({ cart, addToCart, removeFromCart }) => {
+  const location = useLocation();
+  const isComunidad = location.pathname === "/comunidad";
 
   return (
-    <Router basename="/LucfraIng">
-      <Navbar />
+    <>
+      {!isComunidad && <Navbar />}
       <div className="max-w-7xl mx-auto pt-0 px-0">
-        <WhatsAppButton />
+        {!isComunidad && <WhatsAppButton />}
 
         <Routes>
           <Route
@@ -46,48 +37,17 @@ const App = () => {
               </>
             }
           />
-
           <Route
             path="/cart"
             element={<CartPage cart={cart} removeFromCart={removeFromCart} />}
           />
           <Route path="/comunidad" element={<ComunidadPage />} />
         </Routes>
-
-        <Footer id="contacto" />
       </div>
-    </Router>
+
+      <Footer id="contacto" />
+    </>
   );
 };
 
-export default App;
- */
-
-import { BrowserRouter as Router } from "react-router-dom";
-import { useState } from "react";
-import AppContent from "./AppContent"; // nuevo archivo
-
-const App = () => {
-  const [cart, setCart] = useState([]);
-
-  const addToCart = (product) => {
-    const uniqueItem = { ...product, cartItemId: crypto.randomUUID() };
-    setCart([...cart, uniqueItem]);
-  };
-
-  const removeFromCart = (cartItemId) => {
-    setCart((cart) => cart.filter((item) => item.cartItemId !== cartItemId));
-  };
-
-  return (
-    <Router basename="/LucfraIng">
-      <AppContent
-        cart={cart}
-        addToCart={addToCart}
-        removeFromCart={removeFromCart}
-      />
-    </Router>
-  );
-};
-
-export default App;
+export default AppContent;

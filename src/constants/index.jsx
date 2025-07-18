@@ -17,6 +17,7 @@ export const navItems = [
   { label: "Preguntas frecuentes", href: "#preguntasfrecuentes" }, // Ya está correcto
   { label: "Sobre mi", href: "#sobre-mi" }, // Agregar #
   { label: "Contacto", href: "#contacto" }, // Ya está correcto
+  { label: "Comunidad", href: "/comunidad", external: false },
 ];
 
 export const checklistItems = [
