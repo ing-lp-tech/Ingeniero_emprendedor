@@ -66,6 +66,7 @@ export default App;
 import { BrowserRouter as Router } from "react-router-dom";
 import { useState } from "react";
 import AppContent from "./AppContent"; // nuevo archivo
+import BotpressChat from "./components/BotpressChat"; // importa el nuevo componente
 
 const App = () => {
   const [cart, setCart] = useState([]);
@@ -86,6 +87,7 @@ const App = () => {
         addToCart={addToCart}
         removeFromCart={removeFromCart}
       />
+      <BotpressChat /> {/* Agrega el componente del chat aquí */}
     </Router>
   );
 };
