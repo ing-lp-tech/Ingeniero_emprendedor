@@ -316,7 +316,6 @@ const ProductSection = () => {
   return (
     <div className="bg-gradient-to-b from-blue-50 to-white min-h-screen py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        {/* Header Section */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-12 mb-16">
           <div className="md:w-1/2">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
@@ -364,22 +363,18 @@ const ProductSection = () => {
             </div>
           </div>
 
-          {/* Profile Image Placeholder */}
           <div className="md:w-1/2 relative">
             <div className="w-full h-80 bg-gray-200 rounded-xl shadow-2xl border border-gray-300 flex items-center justify-center">
               <img src={luis} alt="Perfil" />
             </div>
           </div>
         </div>
-
-        {/* Services Section */}
         <div className="mb-20">
           <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">
             Servicios Profesionales
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Tech Consulting */}
             <div className="bg-white p-6 rounded-xl shadow-md border border-gray-200 hover:shadow-lg transition">
               <div className="text-blue-600 mb-4">
                 <FaChartLine className="text-4xl" />
@@ -407,7 +402,7 @@ const ProductSection = () => {
                 </li>
               </ul>
             </div>
-            {/* Web Development */}
+
             <div className="bg-white p-6 rounded-xl shadow-md border border-gray-200 hover:shadow-lg transition">
               <div className="text-blue-600 mb-4">
                 <FaLaptopCode className="text-4xl" />
@@ -434,7 +429,6 @@ const ProductSection = () => {
               </ul>
             </div>
 
-            {/* Industrial Automation */}
             <div className="bg-white p-6 rounded-xl shadow-md border border-gray-200 hover:shadow-lg transition">
               <div className="text-blue-600 mb-4">
                 <FaMicrochip className="text-4xl" />
@@ -451,10 +445,7 @@ const ProductSection = () => {
                   <span className="text-blue-500 mr-2">•</span>
                   Diseño de tableros eléctricos
                 </li>
-                {/*  <li className="flex items-start">
-                  <span className="text-blue-500 mr-2">•</span>
-                  Programación de PLCs
-                </li> */}
+
                 <li className="flex items-start">
                   <span className="text-blue-500 mr-2">•</span>
                   Desarrollo de prototipos electrónicos
@@ -463,8 +454,6 @@ const ProductSection = () => {
             </div>
           </div>
         </div>
-
-        {/* Education Section */}
         <div className="mb-20">
           <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">
             Formación Académica
@@ -514,8 +503,6 @@ const ProductSection = () => {
             </div>
           </div>
         </div>
-
-        {/* Call to Action */}
         <div className="bg-blue-600 rounded-xl p-8 md:p-12 text-center text-white mb-20">
           <h2 className="text-2xl md:text-3xl font-bold mb-6">
             ¿Necesitas una solución tecnológica a medida?
@@ -544,14 +531,12 @@ const ProductSection = () => {
           </p>
         </div>
 
-        {/* Expertise Section */}
         <div className="mb-20">
           <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">
             Habilidades y Experiencia
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Technical Skills */}
             <div className="bg-white p-6 rounded-xl shadow-md border border-gray-200">
               <h3 className="text-xl font-semibold mb-6 text-blue-600">
                 Habilidades Técnicas
@@ -614,7 +599,6 @@ const ProductSection = () => {
               </div>
             </div>
 
-            {/* Professional Experience */}
             <div className="bg-white p-6 rounded-xl shadow-md border border-gray-200">
               <h3 className="text-xl font-semibold mb-6 text-blue-600">
                 Experiencia Relevante
@@ -668,7 +652,6 @@ const ProductSection = () => {
           </div>
         </div>
 
-        {/* Final CTA */}
         <div className="text-center">
           <h2 className="text-3xl font-bold text-gray-900 mb-6">
             ¿Listo para comenzar tu proyecto?
@@ -695,3 +678,92 @@ const ProductSection = () => {
 };
 
 export default ProductSection;
+
+// Al inicio del archivo (importaciones)
+
+// ProductSection.jsx
+/* import React, { useState } from "react";
+import { FaPaperPlane } from "react-icons/fa";
+
+const ProductSection = () => {
+  const [input, setInput] = useState("");
+  const [chat, setChat] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const sendMessage = async () => {
+    if (!input.trim()) return;
+
+    const userMessage = { role: "user", content: input };
+    setChat((prev) => [...prev, userMessage]);
+    setInput("");
+    setLoading(true);
+
+    try {
+      const res = await fetch("http://localhost:5000/api/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ prompt: input }), // ✅ corregido aquí
+      });
+
+      const data = await res.json();
+      const aiMessage = { role: "assistant", content: data.message };
+      setChat((prev) => [...prev, aiMessage]);
+    } catch (err) {
+      console.error("Error al obtener respuesta:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="bg-white min-h-screen py-12 px-4">
+      <div className="max-w-4xl mx-auto">
+        <h2 className="text-2xl font-bold text-center mb-4">
+          Asistente LP-TECH
+        </h2>
+        <div className="h-64 overflow-y-auto bg-gray-50 border rounded-lg p-4 mb-4 space-y-2">
+          {chat.map((msg, i) => (
+            <div
+              key={i}
+              className={`p-3 rounded-lg max-w-xl ${
+                msg.role === "user"
+                  ? "bg-blue-100 text-right ml-auto"
+                  : "bg-gray-200 text-left"
+              }`}
+            >
+              {msg.content}
+            </div>
+          ))}
+          {loading && (
+            <div className="bg-gray-200 p-3 rounded-lg text-left max-w-xl">
+              <span className="italic text-gray-500">Escribiendo...</span>
+            </div>
+          )}
+        </div>
+
+        <div className="flex items-center gap-2">
+          <input
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+            placeholder="Escribe tu pregunta..."
+            className="flex-1 border border-gray-300 rounded-lg px-4 py-2"
+          />
+          <button
+            onClick={sendMessage}
+            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center gap-2"
+          >
+            <FaPaperPlane />
+            Enviar
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ProductSection;
+ */

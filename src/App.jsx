@@ -81,7 +81,7 @@ const App = () => {
   };
 
   return (
-    <Router basename="/LucfraIng">
+    <Router basename="/Ingeniero_emprendedor">
       <AppContent
         cart={cart}
         addToCart={addToCart}
