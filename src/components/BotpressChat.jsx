@@ -10,7 +10,7 @@ const BotpressChat = () => {
 
     const script2 = document.createElement("script");
     script2.src =
-      "https://files.bpcontent.cloud/2025/08/07/17/20250807172817-5Y644ROV.js";
+      "https://files.bpcontent.cloud/2025/08/07/22/20250807221612-PSVZ5AJM.js";
     script2.defer = true;
 
     document.body.appendChild(script1);
