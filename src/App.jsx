@@ -67,6 +67,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { useState } from "react";
 import AppContent from "./AppContent"; // nuevo archivo
 import BotpressChat from "./components/BotpressChat"; // importa el nuevo componente
+import RespondioChat from "./components/RespondioChat";
 
 const App = () => {
   const [cart, setCart] = useState([]);
@@ -88,6 +89,7 @@ const App = () => {
         removeFromCart={removeFromCart}
       />
       <BotpressChat /> {/* Agrega el componente del chat aquí */}
+      <RespondioChat /> {/* Widget de Respond.io */}
     </Router>
   );
 };
