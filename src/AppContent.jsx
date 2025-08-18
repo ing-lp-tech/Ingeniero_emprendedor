@@ -8,6 +8,7 @@ import Footer from "./components/Footer";
 import WhatsAppButton from "./components/WhatsAppButton";
 import CartPage from "./components/CartPage";
 import ComunidadPage from "./components/ComunidadPage";
+import ImportacionPage from "./components/ImportacionPage";
 import FAQ from "./components/Faq";
 
 const AppContent = ({ cart, addToCart, removeFromCart }) => {
@@ -42,6 +43,7 @@ const AppContent = ({ cart, addToCart, removeFromCart }) => {
             element={<CartPage cart={cart} removeFromCart={removeFromCart} />}
           />
           <Route path="/comunidad" element={<ComunidadPage />} />
+          <Route path="/importacion" element={<ImportacionPage />} />
         </Routes>
       </div>
 

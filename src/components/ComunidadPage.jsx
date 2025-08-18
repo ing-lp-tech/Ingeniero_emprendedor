@@ -12,6 +12,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import logoLucfra from "../assets/lucfra_t.png";
 import { Link } from "react-router-dom";
 import luis from "../assets/luis.jpg";
+import avatarLuisPatty from "../assets/avatarLuisPatty.png";
 
 const ComunidadPage = () => {
   // Estados para insumos
@@ -162,7 +163,7 @@ const ComunidadPage = () => {
           <Link to="/">
             <img
               className="h-14 w-40 object-contain"
-              src={logoLucfra}
+              src={avatarLuisPatty}
               alt="Logo"
             />
           </Link>

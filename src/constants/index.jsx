@@ -18,6 +18,7 @@ export const navItems = [
   { label: "Sobre mi", href: "#sobre-mi" }, // Agregar #
   { label: "Contacto", href: "#contacto" }, // Ya está correcto
   { label: "Comunidad", href: "/comunidad", external: false },
+  { label: "Importacion", href: "/importacion", external: false },
 ];
 
 export const checklistItems = [
