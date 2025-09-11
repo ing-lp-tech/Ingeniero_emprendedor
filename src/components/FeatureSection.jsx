@@ -1,10 +1,32 @@
-/* import { products } from "../constants";
+import { useEffect, useState } from "react";
+import { products } from "../constants";
 import { plotters } from "../constants";
+import { pcs } from "../constants";
+import { kitCameras } from "../constants";
+import { imouCams } from "../constants";
 import { ShoppingCart } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const ProductSection = ({ id, cart, addToCart }) => {
+  const [dolarOficial, setDolarOficial] = useState(null);
   const allPlotters = [...plotters.inyeccion, ...plotters.corte];
+
+  const allPcs = [...pcs];
+
+  useEffect(() => {
+    const fetchDolar = async () => {
+      try {
+        const res = await fetch("https://dolarapi.com/v1/dolares/oficial");
+        const data = await res.json();
+        console.log("Dólar Oficial:", data.venta);
+        setDolarOficial(data.venta); // guardamos en el state
+      } catch (error) {
+        console.error("Error al obtener la cotización:", error);
+      }
+    };
+
+    fetchDolar();
+  }, []);
 
   return (
     <section id="productos" className="py-6 px-4 md:px-8 bg-gray-50">
@@ -21,7 +43,6 @@ const ProductSection = ({ id, cart, addToCart }) => {
           </h2>
         </div>
 
-       //
         <Link
           to="/cart"
           className="fixed top-24 right-4 z-40 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition flex items-center"
@@ -32,7 +53,6 @@ const ProductSection = ({ id, cart, addToCart }) => {
           </span>
         </Link>
 
-        //
         <div className="mt-16 text-center">
           <h3 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-8">
             <span className="border-b-4 border-blue-500 pb-2">
@@ -80,8 +100,14 @@ const ProductSection = ({ id, cart, addToCart }) => {
                     <div className="mt-4 text-sm text-gray-700 space-y-2">
                       <div className="flex items-center justify-between">
                         <p>
-                          <span className="font-semibold">Pre-venta:</span> $
-                          {plotter.precio_pre_venta.toLocaleString()}
+                          <span className="font-semibold">Pre-venta(usd):</span>{" "}
+                          ${plotter.precio_pre_venta.toLocaleString()}
+                        </p>
+                        <p>
+                          <span className="font-semibold">pesos:</span> $
+                          {(
+                            plotter.precio_pre_venta * dolarOficial
+                          ).toLocaleString()}
                         </p>
                         <button
                           onClick={() =>
@@ -99,8 +125,14 @@ const ProductSection = ({ id, cart, addToCart }) => {
                       </div>
                       <div className="flex items-center justify-between">
                         <p>
-                          <span className="font-semibold">De llegada:</span> $
+                          <span className="font-semibold">Stock actual:</span> $
                           {plotter.precio_de_llegada.toLocaleString()}
+                        </p>
+                        <p>
+                          <span className="font-semibold">pesos:</span> $
+                          {(
+                            plotter.precio_de_llegada * dolarOficial
+                          ).toLocaleString()}
                         </p>
                         <button
                           onClick={() =>
@@ -124,7 +156,6 @@ const ProductSection = ({ id, cart, addToCart }) => {
           </div>
         </div>
 
-        //
         <div className="mt-16 text-center">
           <h3 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-8">
             <span className="border-b-4 border-blue-500 pb-2">
@@ -218,7 +249,297 @@ const ProductSection = ({ id, cart, addToCart }) => {
           </div>
         </div>
 
-        //
+        <div className="mt-16 text-center">
+          <h3 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-8">
+            <span className="border-b-4 border-blue-500 pb-2">
+              Nuestras PCs
+            </span>
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
+            {pcs.map((pc) => (
+              <div
+                key={pc.id}
+                className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition"
+              >
+                <div className="h-48 overflow-hidden flex items-center justify-center bg-gray-100">
+                  <img
+                    src={pc.image}
+                    alt={pc.name}
+                    className="max-w-full object-contain"
+                  />
+                </div>
+
+                <div className="p-6 flex flex-col justify-between h-full">
+                  <div>
+                    <div className="flex justify-between items-start">
+                      <h3 className="text-xl font-bold text-gray-900">
+                        {pc.name}
+                      </h3>
+                      <span className="bg-green-100 text-green-800 text-sm font-semibold px-2.5 py-0.5 rounded">
+                        {pc.category}
+                      </span>
+                    </div>
+
+                    <p className="mt-2 text-gray-600">{pc.description}</p>
+
+                    <div className="mt-4 text-sm text-gray-700 space-y-1 text-left">
+                      <p>
+                        <strong>Procesador:</strong> {pc.specs.procesador}
+                      </p>
+                      <p>
+                        <strong>Gráficos:</strong> {pc.specs.graficos}
+                      </p>
+                      <p>
+                        <strong>RAM:</strong> {pc.specs.ram}
+                      </p>
+                      <p>
+                        <strong>Almacenamiento:</strong>{" "}
+                        {pc.specs.almacenamiento}
+                      </p>
+                      <p>
+                        <strong>Mother:</strong> {pc.specs.mother}
+                      </p>
+                      <p>
+                        <strong>Sistema:</strong> {pc.specs.sistema}
+                      </p>
+                    </div>
+
+                    <div className="mt-4 text-sm text-gray-700 space-y-2">
+                      <div className="flex items-center justify-between">
+                        <p>
+                          Combo Básico: ${pc.combos.basico.toLocaleString()}
+                        </p>
+                        <button
+                          onClick={() =>
+                            addToCart({
+                              ...pc,
+                              quantity: 1,
+                              price: pc.combos.basico,
+                            })
+                          }
+                          className="bg-blue-600 text-white text-xs px-3 py-1 rounded hover:bg-blue-700"
+                        >
+                          Añadir
+                        </button>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <p>
+                          Con Monitor: ${pc.combos.conMonitor.toLocaleString()}
+                        </p>
+                        <button
+                          onClick={() =>
+                            addToCart({
+                              ...pc,
+                              quantity: 1,
+                              price: pc.combos.conMonitor,
+                            })
+                          }
+                          className="bg-blue-600 text-white text-xs px-3 py-1 rounded hover:bg-blue-700"
+                        >
+                          Añadir
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-16 text-center">
+          <h3 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-8">
+            <span className="border-b-4 border-blue-500 pb-2">
+              Nuestros Kits de Cámaras
+            </span>
+          </h3>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
+            {kitCameras.kits.map((kit) => (
+              <div
+                key={kit.id}
+                className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition"
+              >
+                <div className="-48 overflow-hidden">
+                  <img
+                    src={kit.image}
+                    alt={kit.name}
+                    className="h-full object-cover"
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src =
+                        "https://via.placeholder.com/300x200?text=Kit+de+Cámaras";
+                    }}
+                  />
+                </div>
+
+                <div className="p-6 flex flex-col justify-between h-full">
+                  <div>
+                    <div className="flex justify-between items-start">
+                      <h3 className="text-xl font-bold text-gray-900">
+                        {kit.name}
+                      </h3>
+                      <span className="bg-blue-100 text-blue-800 text-sm font-semibold px-2.5 py-0.5 rounded">
+                        {kit.category}
+                      </span>
+                    </div>
+
+                    <p className="mt-2 text-gray-600">{kit.description}</p>
+
+                    <div className="mt-4 text-sm text-gray-700 space-y-2">
+                      <div className="flex items-center justify-between">
+                        <p>
+                          <span className="font-semibold">Kit:</span> $
+                          {(kit.combos.kit * dolarOficial).toLocaleString()}
+                        </p>
+
+                        <button
+                          onClick={() =>
+                            addToCart({
+                              ...kit,
+                              quantity: 1,
+                              price: kit.combos.kit,
+                              name: kit.name,
+                            })
+                          }
+                          className="bg-blue-600 text-white text-xs px-3 py-1 rounded hover:bg-blue-700 transition"
+                        >
+                          Añadir
+                        </button>
+                      </div>
+
+                      <div className="flex items-center justify-between">
+                        <p>
+                          <span className="font-semibold">+ instalación:</span>{" "}
+                          {(
+                            kit.combos.kit *
+                            dolarOficial *
+                            1.5
+                          ).toLocaleString()}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Especificaciones */}
+                    <div className="mt-4 text-xs text-left text-gray-500 space-y-1">
+                      <p>
+                        <strong>DVR:</strong> {kit.specs.dvr}
+                      </p>
+                      <p>
+                        <strong>Cámaras:</strong> {kit.specs.cameras}
+                      </p>
+                      <p>
+                        <strong>Balunes:</strong> {kit.specs.baluns}
+                      </p>
+                      <p>
+                        <strong>Plugs:</strong> {kit.specs.plugs}
+                      </p>
+                      <p>
+                        <strong>Splitter:</strong> {kit.specs.splitter}
+                      </p>
+                      <p>
+                        <strong>Cable:</strong> {kit.specs.cable}
+                      </p>
+                      <p>
+                        <strong>Fuente:</strong> {kit.specs.power}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-20 text-center">
+          <h3 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-10">
+            <span className="border-b-4 border-green-500 pb-2">
+              Cámaras IMOU Inteligentes
+            </span>
+          </h3>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 px-4">
+            {imouCams.imous.map((cam) => (
+              <div
+                key={cam.id}
+                className="bg-white rounded-2xl shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition"
+              >
+                {/* Imagen */}
+                <div className="h-56 bg-gray-50 flex items-center justify-center">
+                  <img
+                    src={cam.image}
+                    alt={cam.name}
+                    className="h-full object-contain"
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src =
+                        "https://via.placeholder.com/300x200?text=Cámara+IMOU";
+                    }}
+                  />
+                </div>
+
+                {/* Contenido */}
+                <div className="p-6 flex flex-col h-full">
+                  {/* Header */}
+                  <div className="flex justify-between items-start">
+                    <h3 className="text-lg font-bold text-gray-900">
+                      {cam.name}
+                    </h3>
+                    <span className="bg-green-100 text-green-800 text-xs font-semibold px-2 py-1 rounded">
+                      {cam.category}
+                    </span>
+                  </div>
+
+                  {/* Descripción */}
+                  <p className="mt-3 text-gray-600 text-sm">
+                    {cam.description}
+                  </p>
+
+                  {/* Precios */}
+                  <div className="mt-5 space-y-3 text-sm text-gray-700">
+                    <div className="flex items-center justify-between">
+                      <p>
+                        <span className="font-semibold">Unidad:</span> $
+                        {(cam.price * dolarOficial).toLocaleString()}
+                      </p>
+                      {/* <p>
+                        <span className="font-semibold">Kit:</span> $
+                        {(kit.combos.kit * dolarOficial).toLocaleString()}
+                      </p> */}
+                      <button
+                        onClick={() =>
+                          addToCart({
+                            ...cam,
+                            quantity: 1,
+                            price: cam.combos.unidad,
+                            name: cam.name,
+                          })
+                        }
+                        className="flex items-center gap-1 bg-green-600 text-white text-xs px-3 py-1.5 rounded hover:bg-green-700 transition"
+                      >
+                        <ShoppingCart size={14} />
+                        Añadir
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Specs */}
+                  <div className="mt-4 text-xs text-left text-gray-500 space-y-1">
+                    {Object.entries(cam.specs).map(([key, value]) => (
+                      <p key={key}>
+                        <strong>
+                          {key.charAt(0).toUpperCase() + key.slice(1)}:
+                        </strong>{" "}
+                        {value}
+                      </p>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
         <div className="mt-24 grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="bg-white p-8 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition">
             <div className="bg-blue-100 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
@@ -297,9 +618,8 @@ const ProductSection = ({ id, cart, addToCart }) => {
 };
 
 export default ProductSection;
- */
 
-import React from "react";
+/* import React from "react";
 import {
   FaLinkedin,
   FaGithub,
@@ -677,7 +997,7 @@ const ProductSection = () => {
   );
 };
 
-export default ProductSection;
+export default ProductSection; */
 
 // Al inicio del archivo (importaciones)
 

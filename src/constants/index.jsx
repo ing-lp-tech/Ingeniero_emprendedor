@@ -9,6 +9,14 @@ import papelMadera1 from ".././assets/papelMadera2.jpg";
 import papelBlanco2 from ".././assets/papelBlanco2.jpg";
 import injectplotter from ".././assets/injectplotter.jpg";
 import plotterdecorte from ".././assets/plotterdecorte.jpg";
+import injectplotterepson from ".././assets/injectplotterepson.jpg";
+import injectplotterhp45 from ".././assets/injectplotterhp45.jpg";
+import plotterdecorte1 from ".././assets/plotterdecorte1.jpg";
+import pc_tizado from ".././assets/pc_500mil.jpg";
+import kit4cam from ".././assets/kit4cam.jpg";
+import kit8cam from ".././assets/kit8cam.jpg";
+import imouRanger2 from ".././assets/imouCruise.jpg";
+import imouCruiserSe from ".././assets/imouRange.jpg";
 
 export const navItems = [
   { label: "Inicio", href: "#inicio" }, // Agregar #
@@ -54,6 +62,133 @@ export const platformLinks = [
   { href: "#", text: "Downloads" },
   { href: "#", text: "Release Notes" },
 ];
+
+export const pcs = [
+  {
+    id: 1,
+    name: "PC Tizado Digital – AMD Athlon 3000G",
+    category: "Computadoras",
+    description: "PC optimizada para plotters y software de tizado textil.",
+    price: 550000,
+    image: pc_tizado,
+    specs: {
+      procesador: "AMD Athlon 3000G",
+      graficos: "Radeon Vega 3",
+      mother: "A520M A PRO",
+      ram: "8GB (1x8) Patriot 3200 MHz",
+      almacenamiento: "SSD 240 GB ADATA",
+      fuente: "500W (gabinete kit)",
+      gabinete: "Noxi Kit + Fuente",
+      perifericos: "Teclado y mouse incluidos",
+      wifi: "Adaptador USB 300 Mbps 2.4GHz",
+      sistema: "Windows 10 + Office activado",
+      garantia: "1 año directo",
+    },
+    combos: {
+      basico: 500000,
+      conMonitor: 680000,
+    },
+  },
+];
+
+export const kitCameras = {
+  kits: [
+    {
+      id: 101,
+      name: "KIT 4 Cámaras Dahua + DVR 4CH",
+      category: "Seguridad",
+      description:
+        "Kit de videovigilancia + instalación completa con DVR Dahua de 4 canales y 4 cámaras bullet B1A21P. Incluye balunes, conectores, splitter, cable UTP de 60mts y fuente de alimentación.",
+      price: 170, // precio base (ejemplo, ajustalo)
+      image: kit4cam, // import de la imagen optimizada
+      combos: {
+        kit: 185000,
+        instaladores: "consultar",
+      },
+      specs: {
+        dvr: "DVR 4CH XVR1B04-I",
+        cameras: "4 Cámaras Dahua Bullet B1A21P",
+        baluns: "4 balunes x 2u",
+        plugs: "4 plug macho a bornera + 4 plug hembra a bornera",
+        splitter: "Splitter pulpo de alimentación 1 a 4",
+        cable: "60mts cable UTP 2 pares CAT5e exterior",
+        power: "Fuente 3A enchufable",
+      },
+    },
+    {
+      id: 102,
+      name: "KIT 8 Cámaras Dahua + DVR 8CH",
+      category: "Seguridad",
+      description:
+        "Kit de videovigilancia + instalación completa con DVR Dahua de 8 canales y 8 cámaras bullet B1A21P. Incluye balunes, conectores, splitter, cable UTP de 120mts y fuente de alimentación.",
+      price: 290, // precio base (ejemplo, ajustalo)
+      image: kit8cam, // import de la imagen optimizada
+      combos: {
+        kit: 320000,
+        instaladores: "consultar",
+      },
+      specs: {
+        dvr: "DVR 8CH XVR1B08-I",
+        cameras: "8 Cámaras Dahua Bullet B1A21P",
+        baluns: "8 balunes x 2u",
+        plugs: "8 plug macho a bornera + 8 plug hembra a bornera",
+        splitter: "Splitter pulpo de alimentación 1 a 8",
+        cable: "120mts cable UTP 2 pares CAT5e exterior",
+        power: "Fuente 10A metálica",
+      },
+    },
+  ],
+};
+
+export const imouCams = {
+  imous: [
+    {
+      id: 103,
+      name: "IMOU RANGER 2 A22EP-G",
+      category: "Cámara Wi-Fi",
+      description:
+        "Cámara Wi-Fi interior con cobertura de 360°. Compresión H.265, altavoz, micrófono y sirena incorporados. Incluye ranura para tarjeta micro SD, detección de movimiento, detección humano y alarma de sonido.",
+      price: 30, // ejemplo, ajustar según tu tabla
+      image: imouRanger2, // import correspondiente
+      combos: {
+        unidad: 75000,
+        instaladores: "consultar",
+      },
+      specs: {
+        conexion: "Wi-Fi",
+        cobertura: "360°",
+        compresion: "H.265",
+        audio: "Altavoz, micrófono, sirena incorporado",
+        almacenamiento: "Ranura micro SD",
+        funciones:
+          "Detección de movimiento, detección humano, alarma de sonido",
+      },
+    },
+    {
+      id: 104,
+      name: "IMOU CRUISER SE+ K7CP-3H1WE",
+      category: "Cámara Wi-Fi Exterior",
+      description:
+        "Cámara Wi-Fi exterior plástica con compresión H.265, comunicación bidireccional y ranura micro SD. Incluye detección de movimiento, detección humano, disuasión activa y certificación IP66.",
+      price: 60, // ejemplo, ajustar según tu tabla
+      image: imouCruiserSe, // import correspondiente
+      combos: {
+        unidad: 120000,
+        instaladores: "consultar",
+      },
+      specs: {
+        material: "Plástica",
+        compresion: "H.265",
+        conexion: "Wi-Fi",
+        audio: "Comunicación bidireccional",
+        almacenamiento: "Ranura micro SD",
+        funciones:
+          "Detección de movimiento, detección humano, disuasión activa",
+        proteccion: "IP66",
+      },
+    },
+  ],
+};
 
 export const products = [
   {
@@ -192,37 +327,37 @@ export const plotters = {
   inyeccion: [
     {
       id: 1,
-      nombre: "Inject Plotter 195cm HP45",
-      image: injectplotter,
-      precio_pre_venta: 3450,
-      precio_de_llegada: 4100,
+      nombre: "Inject Plotter 190cm HP45",
+      image: injectplotterhp45,
+      precio_pre_venta: 3000,
+      precio_de_llegada: 4000,
       descripcion:
         "Plotter de inyección de tinta de 195cm con tecnología HP45 para tizado de patrones de ropa. Imprime en ambos sentidos (1m/min) y requiere cartuchos de tinta especializados. Ideal para talleres con alta demanda de producción.",
     },
     {
       id: 2,
-      nombre: "Inject Plotter 195cm EPSON",
-      image: injectplotter,
-      precio_pre_venta: 3625,
-      precio_de_llegada: 4200,
+      nombre: "Inject Plotter 190cm EPSON",
+      image: injectplotterepson,
+      precio_pre_venta: 3150,
+      precio_de_llegada: 4100,
       descripcion:
         "Plotter profesional de 195cm con cabezales Epson para tizado textil. Funciona con cartuchos de tinta y ofrece impresión bidireccional (1m/min). Perfecto para patrones detallados en confección de ropa.",
     },
     {
       id: 3,
       nombre: "Inject Plotter 200cm HP45",
-      image: injectplotter,
-      precio_pre_venta: 3970,
-      precio_de_llegada: 4600,
+      image: injectplotterhp45,
+      precio_pre_venta: 3450,
+      precio_de_llegada: 4500,
       descripcion:
         "Solución industrial de 200cm para tizado de patrones. Utiliza cartuchos HP45 y alcanza 1m/min en modo bidireccional. Para talleres que trabajan con prendas de gran tamaño.",
     },
     {
       id: 4,
       nombre: "Inject Plotter 200cm EPSON",
-      image: injectplotter,
-      precio_pre_venta: 4200,
-      precio_de_llegada: 4850,
+      image: injectplotterepson,
+      precio_pre_venta: 3650,
+      precio_de_llegada: 4800,
       descripcion:
         "Plotter textil Epson de máxima capacidad (200cm). Opera con cartuchos de tinta especializados y ofrece alta velocidad (1m/min) para producción intensiva de patrones.",
     },
@@ -231,27 +366,27 @@ export const plotters = {
     {
       id: 5,
       nombre: "Cutting Plotter 100cm",
-      image: plotterdecorte,
-      precio_pre_venta: 750,
-      precio_de_llegada: 880,
+      image: plotterdecorte1,
+      precio_pre_venta: 650,
+      precio_de_llegada: 850,
       descripcion:
         "Plotter de corte de 100cm que funciona con lapiceras estándar (no requiere cartuchos). Gran ventaja económica: solo necesita lapiceras comunes para tizado de patrones. Ideal para emprendedores textiles.",
     },
     {
       id: 6,
       nombre: "Cutting Plotter 125cm",
-      image: plotterdecorte,
-      precio_pre_venta: 890,
-      precio_de_llegada: 1100,
+      image: plotterdecorte1,
+      precio_pre_venta: 800,
+      precio_de_llegada: 1000,
       descripcion:
         "Sistema de corte de 125cm que utiliza lapiceras en lugar de cartuchos, reduciendo costos operativos. Perfecto para talleres que buscan economía sin sacrificar precisión en el tizado de moldes.",
     },
     {
       id: 7,
-      nombre: "Cutting Plotter 190cm",
-      image: plotterdecorte,
-      precio_pre_venta: 1440,
-      precio_de_llegada: 1660,
+      nombre: "Cutting Plotter 180cm",
+      image: plotterdecorte1,
+      precio_pre_venta: 1250,
+      precio_de_llegada: 1650,
       descripcion:
         "Único plotter de corte industrial de 190cm que trabaja con lapiceras comunes. No necesita cartuchos, ofreciendo el menor costo por patrón tizado. Solución profesional para grandes talleres de confección.",
     },

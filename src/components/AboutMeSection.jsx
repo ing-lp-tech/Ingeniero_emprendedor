@@ -1,10 +1,10 @@
 import React from "react";
-import socios from "../assets/socios.jpg";
+import socios from "../assets/luis.jpg";
 
-const AboutUsSection = () => {
+const AboutMeSection = () => {
   return (
     <div
-      id="sobre-nosotros"
+      id="sobre-mi"
       className="relative bg-black text-white"
       style={{
         backgroundImage: `url(${socios})`,
@@ -18,57 +18,56 @@ const AboutUsSection = () => {
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-shadow">
         <div className="space-y-12">
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white text-center">
-            SOBRE NOSOTROS
+            SOBRE MÍ
           </h2>
 
-          {/* Historia */}
+          {/* Formación */}
           <div className="space-y-4">
-            <h3 className="text-2xl font-semibold">Una sociedad de amigos</h3>
+            <h3 className="text-2xl font-semibold">Ingeniero Electrónico</h3>
             <p className="text-lg">
-              Somos un grupo de amigos que decidió convertir su experiencia y
-              valores en un proyecto real. Unidos por la pasión por la
-              innovación y la confección, decidimos fundar esta empresa para
-              apoyar a la comunidad textil, especialmente a quienes están
-              emprendiendo o produciendo a escala.
+              Soy ingeniero electrónico graduado en la UNLaM, con una base
+              académica sólida que me permitió unir la teoría con la práctica.
+              Desde el inicio de mi carrera descubrí que mi verdadera pasión es
+              aplicar el conocimiento técnico a proyectos que generen impacto
+              real.
             </p>
           </div>
 
-          {/* Misión */}
+          {/* Experiencia en máquinas */}
           <div className="space-y-4">
             <h3 className="text-2xl font-semibold">
-              Comprometidos con la comunidad
+              Experiencia en máquinas y procesos
             </h3>
             <p className="text-lg">
-              Nuestro objetivo es claro: ofrecer soluciones que simplifiquen el
-              día a día del fabricante. Brindamos insumos de calidad, como papel
-              para plotter y sublimación, a precios justos, porque creemos que
-              el acceso a herramientas profesionales no debe ser un privilegio.
+              A lo largo de mi recorrido profesional adquirí experiencia
+              trabajando con diferentes tipos de máquinas, lo que me permitió
+              entender a fondo los procesos productivos y las necesidades del
+              sector industrial y textil.
             </p>
           </div>
 
-          {/* Valores */}
+          {/* Fabricación de ropa */}
           <div className="space-y-4">
-            <h3 className="text-2xl font-semibold">
-              Compartimos los mismos valores
-            </h3>
+            <h3 className="text-2xl font-semibold">Fabricando con pasión</h3>
             <p className="text-lg">
-              Creemos en la transparencia, el trabajo bien hecho y el trato
-              humano. Cada decisión que tomamos está guiada por estos valores.
-              No somos una empresa más: somos un equipo que escucha, que aprende
-              y que crece con cada cliente.
+              También tengo experiencia en la fabricación de ropa, donde pude
+              aplicar la disciplina técnica de la ingeniería para optimizar la
+              producción, innovar en los procesos y garantizar la calidad en
+              cada detalle.
             </p>
           </div>
 
-          {/* Innovación */}
+          {/* Importaciones y visión */}
           <div className="space-y-4">
             <h3 className="text-2xl font-semibold">
-              Apostamos a la innovación
+              Conectando tecnología y oportunidades
             </h3>
             <p className="text-lg">
-              Estamos en constante evolución, buscando nuevas formas de aportar
-              al sector textil con tecnología accesible y soporte real. Este
-              proyecto nació para hacer una diferencia, y eso es lo que hacemos
-              cada día.
+              Hoy aplico mis conocimientos de ingeniería y mi experiencia en el
+              rubro para importar productos como plotters y otros equipos desde
+              China, acercando tecnología accesible y confiable a quienes lo
+              necesitan. Mi visión es clara: unir conocimiento, experiencia y
+              herramientas para ofrecer soluciones prácticas y reales.
             </p>
           </div>
         </div>
@@ -77,4 +76,4 @@ const AboutUsSection = () => {
   );
 };
 
-export default AboutUsSection;
+export default AboutMeSection;

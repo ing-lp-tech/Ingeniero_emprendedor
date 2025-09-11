@@ -2,6 +2,7 @@ import { div } from "framer-motion/client";
 import logoLucfra from "../assets/lucfra.jpg";
 import plotter2 from "../assets/plotter2.jpg";
 import React, { useState } from "react";
+import avatarLuisPatty from "../assets/avatarLuisPatty.png";
 
 const HeroSection = ({ id }) => {
   const phoneNumber = "5491162020911";
@@ -173,7 +174,7 @@ const HeroSection = ({ id }) => {
               <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16">
                 <img
                   className="h-8 opacity-70 hover:opacity-100 transition"
-                  src={logoLucfra}
+                  src={avatarLuisPatty}
                   alt="Marca 1"
                 />
               </div>

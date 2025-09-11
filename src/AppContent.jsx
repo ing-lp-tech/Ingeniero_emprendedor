@@ -26,15 +26,15 @@ const AppContent = ({ cart, addToCart, removeFromCart }) => {
             path="/"
             element={
               <>
-                {/* <HeroSection id="inicio" /> */}
+                <HeroSection id="inicio" />
                 <ProductSection
                   id="servicios"
                   cart={cart}
                   addToCart={addToCart}
                 />
-                {/* <Workflow id="como-trabajamos" />
-                <FAQ id="preguntasfreceuntes" /> */}
-                {/*  <AboutMeSection id="sobre-mi" /> */}
+                <Workflow id="como-trabajamos" />
+                <FAQ id="preguntasfreceuntes" />
+                <AboutMeSection id="sobre-mi" />
               </>
             }
           />
