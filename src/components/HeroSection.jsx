@@ -3,6 +3,7 @@ import logoLucfra from "../assets/lucfra.jpg";
 import plotter2 from "../assets/plotter2.jpg";
 import React, { useState } from "react";
 import avatarLuisPatty from "../assets/avatarLuisPattyJpg.jpg";
+import logoluisys from "../assets/LogoLuisys.png";
 
 const HeroSection = ({ id }) => {
   const phoneNumber = "5491162020911";
@@ -122,6 +123,13 @@ const HeroSection = ({ id }) => {
           <div className="max-w-7xl mx-auto">
             <div className="flex flex-col md:flex-row items-center justify-between gap-12">
               <div className="md:w-1/2">
+                <div className="items-center justify-between">
+                  <img
+                    className="w-full rounded-xl shadow-2xl border border-gray-200"
+                    src={logoluisys}
+                    alt="Plotter industrial en funcionamiento"
+                  />
+                </div>
                 <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
                   Soluciones profesionales para{" "}
                   <span className="text-blue-600">patronaje digital</span>
