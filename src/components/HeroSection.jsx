@@ -2,7 +2,7 @@ import { div } from "framer-motion/client";
 import logoLucfra from "../assets/lucfra.jpg";
 import plotter2 from "../assets/plotter2.jpg";
 import React, { useState } from "react";
-import avatarLuisPatty from "../assets/avatarLuisPatty.png";
+import avatarLuisPatty from "../assets/avatarLuisPattyJpg.jpg";
 
 const HeroSection = ({ id }) => {
   const phoneNumber = "5491162020911";
@@ -135,9 +135,9 @@ const HeroSection = ({ id }) => {
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <button className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105">
+                  {/* <button className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105">
                     Ver Catálogo Completo
-                  </button>
+                  </button> */}
                   <button className="border border-blue-600 text-blue-600 hover:bg-blue-50 font-medium py-3 px-6 rounded-lg transition duration-300">
                     <a href={whatsappUrl}>Solicitar Asesoría Técnica</a>
                   </button>

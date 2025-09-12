@@ -69,7 +69,7 @@ export const pcs = [
     name: "PC Tizado Digital – AMD Athlon 3000G",
     category: "Computadoras",
     description: "PC optimizada para plotters y software de tizado textil.",
-    price: 550000,
+    price: 500000,
     image: pc_tizado,
     specs: {
       procesador: "AMD Athlon 3000G",
@@ -332,7 +332,7 @@ export const plotters = {
       precio_pre_venta: 3000,
       precio_de_llegada: 4000,
       descripcion:
-        "Plotter de inyección de tinta de 195cm con tecnología HP45 para tizado de patrones de ropa. Imprime en ambos sentidos (1m/min) y requiere cartuchos de tinta especializados. Ideal para talleres con alta demanda de producción.",
+        "Plotter de inyección de tinta de 190cm con tecnología HP45 para tizado de patrones de ropa. Imprime en ambos sentidos (1m/min) . Ideal para talleres con alta demanda de producción.",
     },
     {
       id: 2,
@@ -341,7 +341,7 @@ export const plotters = {
       precio_pre_venta: 3150,
       precio_de_llegada: 4100,
       descripcion:
-        "Plotter profesional de 195cm con cabezales Epson para tizado textil. Funciona con cartuchos de tinta y ofrece impresión bidireccional (1m/min). Perfecto para patrones detallados en confección de ropa.",
+        "Plotter profesional de 190cm con cabezales Epson RECARGABLES para tizado textil. Ofrece impresión bidireccional (1m/min). Perfecto para patrones en confección de ropa.",
     },
     {
       id: 3,
@@ -350,7 +350,7 @@ export const plotters = {
       precio_pre_venta: 3450,
       precio_de_llegada: 4500,
       descripcion:
-        "Solución industrial de 200cm para tizado de patrones. Utiliza cartuchos HP45 y alcanza 1m/min en modo bidireccional. Para talleres que trabajan con prendas de gran tamaño.",
+        "Plotter de inyección de tinta de 200cm con tecnología HP45 para tizado de patrones de ropa. Imprime en ambos sentidos (1m/min) . Ideal para talleres con alta demanda de producción. Para talleres que trabajan con prendas de gran tamaño.",
     },
     {
       id: 4,
@@ -359,7 +359,7 @@ export const plotters = {
       precio_pre_venta: 3650,
       precio_de_llegada: 4800,
       descripcion:
-        "Plotter textil Epson de máxima capacidad (200cm). Opera con cartuchos de tinta especializados y ofrece alta velocidad (1m/min) para producción intensiva de patrones.",
+        "Plotter profesional de 190cm con cabezales Epson RECARGABLES para tizado textil. Ofrece impresión bidireccional (1m/min). Perfecto para patrones en confección de ropa. Para talleres que trabajan con prendas de gran tamaño.",
     },
   ],
   corte: [
@@ -388,10 +388,81 @@ export const plotters = {
       precio_pre_venta: 1250,
       precio_de_llegada: 1650,
       descripcion:
-        "Único plotter de corte industrial de 190cm que trabaja con lapiceras comunes. No necesita cartuchos, ofreciendo el menor costo por patrón tizado. Solución profesional para grandes talleres de confección.",
+        "Único plotter de corte industrial de 180cm que trabaja con lapiceras comunes. No necesita cartuchos, ofreciendo el menor costo por patrón tizado. Solución profesional para grandes telas y papeles de gran tamano.",
     },
   ],
 };
+
+/* export const plotters = {
+  inyeccion: [
+    {
+      id: 1,
+      nombre: "Inject Plotter 190cm HP45",
+      image: injectplotterhp45,
+      precio_pre_venta: 3000,
+      precio_de_llegada: 4000,
+      descripcion:
+        "Plotter de inyección de tinta de 190cm con tecnología HP45 para tizado de patrones de ropa. Imprime en ambos sentidos (1m/min) . Ideal para talleres con alta demanda de producción.",
+    },
+    {
+      id: 2,
+      nombre: "Inject Plotter 190cm EPSON",
+      image: injectplotterepson,
+      precio_pre_venta: 3150,
+      precio_de_llegada: 4100,
+      descripcion:
+        "Plotter profesional de 190cm con cabezales Epson RECARGABLES para tizado textil. Ofrece impresión bidireccional (1m/min). Perfecto para patrones en confección de ropa.",
+    },
+    {
+      id: 3,
+      nombre: "Inject Plotter 200cm HP45",
+      image: injectplotterhp45,
+      precio_pre_venta: 3450,
+      precio_de_llegada: 4500,
+      descripcion:
+        "Plotter de inyección de tinta de 190cm con tecnología HP45 para tizado de patrones de ropa. Imprime en ambos sentidos (1m/min) . Ideal para talleres con alta demanda de producción. Para talleres que trabajan con prendas de gran tamaño.",
+    },
+    {
+      id: 4,
+      nombre: "Inject Plotter 200cm EPSON",
+      image: injectplotterepson,
+      precio_pre_venta: 3650,
+      precio_de_llegada: 4800,
+      descripcion:
+        "Plotter profesional de 190cm con cabezales Epson RECARGABLES para tizado textil. Ofrece impresión bidireccional (1m/min). Perfecto para patrones en confección de ropa. Para talleres que trabajan con prendas de gran tamaño.",
+    },
+    ,
+  ],
+  corte: [
+    {
+      id: 5,
+      nombre: "Cutting Plotter 100cm",
+      image: plotterdecorte1,
+      precio_pre_venta: 650,
+      precio_de_llegada: 850,
+      descripcion:
+        "Plotter de corte de 100cm que funciona con lapiceras estándar (no requiere cartuchos). Gran ventaja económica: solo necesita lapiceras comunes para tizado de patrones. Ideal para emprendedores textiles.",
+    },
+    {
+      id: 6,
+      nombre: "Cutting Plotter 125cm",
+      image: plotterdecorte1,
+      precio_pre_venta: 800,
+      precio_de_llegada: 1000,
+      descripcion:
+        "Sistema de corte de 125cm que utiliza lapiceras en lugar de cartuchos, reduciendo costos operativos. Perfecto para talleres que buscan economía sin sacrificar precisión en el tizado de moldes.",
+    },
+    {
+      id: 7,
+      nombre: "Cutting Plotter 180cm",
+      image: plotterdecorte1,
+      precio_pre_venta: 1250,
+      precio_de_llegada: 1650,
+      descripcion:
+        "Único plotter de corte industrial de 180cm que trabaja con lapiceras comunes. No necesita cartuchos, ofreciendo el menor costo por patrón tizado. Solución profesional para grandes telas y papeles de gran tamano.",
+    },
+  ],
+}; */
 
 export const faqData = [
   /* {

@@ -58,7 +58,9 @@ export default Footer;
 
 import tiktok from "../assets/tiktok.svg";
 import { Instagram, Facebook, Linkedin, Youtube, Twitter } from "lucide-react";
-import avatarLuisPatty from "../assets/avatarLuisPatty.png";
+import avatarLuisPatty from "../assets/avatarLuisPattyJpg.jpg";
+import logoEngineer from "../assets/logoEngineer.jpg";
+import logoluisys from "../assets/LogoLuisys.png";
 
 const Footer = ({ id }) => {
   // URLs de las redes sociales
@@ -89,7 +91,7 @@ const Footer = ({ id }) => {
           <div>
             <img
               className="h-24 w-40 object-contain"
-              src={avatarLuisPatty}
+              src={logoluisys}
               alt="Logo"
             />
           </div>

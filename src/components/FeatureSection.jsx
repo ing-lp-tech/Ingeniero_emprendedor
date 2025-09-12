@@ -219,7 +219,7 @@ const ProductSection = ({ id, cart, addToCart }) => {
                               addToCart({
                                 ...plotter,
                                 quantity: 1,
-                                price: plotter.precio_pre_venta,
+                                price: plotter.precio_pre_venta * dolarOficial,
                                 name: plotter.nombre,
                               })
                             }
@@ -248,7 +248,7 @@ const ProductSection = ({ id, cart, addToCart }) => {
                               addToCart({
                                 ...plotter,
                                 quantity: 1,
-                                price: plotter.precio_de_llegada,
+                                price: plotter.precio_de_llegada * dolarOficial,
                                 name: plotter.nombre,
                               })
                             }
@@ -514,7 +514,7 @@ const ProductSection = ({ id, cart, addToCart }) => {
                           <p>
                             <span className="font-semibold">Kit:</span> $
                             {dolarOficial
-                              ? (kit.combos.kit * dolarOficial).toLocaleString()
+                              ? (kit.price * dolarOficial).toLocaleString()
                               : "Cargando..."}
                           </p>
 
@@ -523,7 +523,7 @@ const ProductSection = ({ id, cart, addToCart }) => {
                               addToCart({
                                 ...kit,
                                 quantity: 1,
-                                price: kit.combos.kit,
+                                price: kit.price * dolarOficial,
                                 name: kit.name,
                               })
                             }
@@ -540,12 +540,25 @@ const ProductSection = ({ id, cart, addToCart }) => {
                             </span>{" "}
                             {dolarOficial
                               ? (
-                                  kit.combos.kit *
+                                  kit.price *
                                   dolarOficial *
-                                  1.5
+                                  1.6
                                 ).toLocaleString()
                               : "Cargando..."}
                           </p>
+                          <button
+                            onClick={() =>
+                              addToCart({
+                                ...kit,
+                                quantity: 1,
+                                price: kit.price * dolarOficial * 1.6,
+                                name: kit.name,
+                              })
+                            }
+                            className="bg-blue-600 text-white text-xs px-3 py-1 rounded hover:bg-blue-700 transition"
+                          >
+                            Añadir
+                          </button>
                         </div>
                       </div>
 
@@ -641,7 +654,8 @@ const ProductSection = ({ id, cart, addToCart }) => {
                             addToCart({
                               ...cam,
                               quantity: 1,
-                              price: cam.combos.unidad,
+                              price: cam.price * dolarOficial,
+
                               name: cam.name,
                             })
                           }

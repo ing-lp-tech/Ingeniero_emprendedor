@@ -98,7 +98,10 @@ export default Navbar;
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import logoLucfra from "../assets/lucfra_t.png";
-import avatarLuisPatty from "../assets/avatarLuisPatty.png";
+import avatarLuisPatty from "../assets/avatarLuisPatty.jpg";
+import avatarLuisPattypng from "../assets/avatarLuisPatty-256x256.png";
+import logoluisys from "../assets/LogoLuisys.png";
+
 import { navItems } from "../constants";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -117,7 +120,7 @@ const Navbar = () => {
           <Link to="/">
             <img
               className="h-14 w-40 object-contain"
-              src={avatarLuisPatty}
+              src={logoluisys}
               alt="Logo"
             />
           </Link>

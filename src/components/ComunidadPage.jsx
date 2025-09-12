@@ -12,7 +12,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import logoLucfra from "../assets/lucfra_t.png";
 import { Link } from "react-router-dom";
 import luis from "../assets/luis.jpg";
-import avatarLuisPatty from "../assets/avatarLuisPatty.png";
+import avatarLuisPatty from "../assets/avatarLuisPattyJpg.jpg";
 
 const ComunidadPage = () => {
   // Estados para insumos
