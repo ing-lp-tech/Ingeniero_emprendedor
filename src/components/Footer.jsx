@@ -114,9 +114,7 @@ const Footer = ({ id }) => {
 
         {/* Información adicional */}
         <div className="text-center text-neutral-400">
-          <p>
-            © {new Date().getFullYear()} Lucfra. Todos los derechos reservados.
-          </p>
+          <p>© {new Date().getFullYear()} Todos los derechos reservados.</p>
           <p className="mt-2">
             Diseñado por{" "}
             <a

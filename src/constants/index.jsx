@@ -15,8 +15,8 @@ import plotterdecorte1 from ".././assets/plotterdecorte1.jpg";
 import pc_tizado from ".././assets/pc_500mil.jpg";
 import kit4cam from ".././assets/kit4cam.jpg";
 import kit8cam from ".././assets/kit8cam.jpg";
-import imouRanger2 from ".././assets/imouCruise.jpg";
-import imouCruiserSe from ".././assets/imouRange.jpg";
+import imouRanger2 from ".././assets/imouRange.jpg";
+import imouCruiserSe from ".././assets/imouCruise.jpg";
 
 export const navItems = [
   { label: "Inicio", href: "#inicio" }, // Agregar #

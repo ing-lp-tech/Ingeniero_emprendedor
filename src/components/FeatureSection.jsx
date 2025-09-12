@@ -4,14 +4,15 @@ import { plotters } from "../constants";
 import { pcs } from "../constants";
 import { kitCameras } from "../constants";
 import { imouCams } from "../constants";
-import { ShoppingCart } from "lucide-react";
+import { ShoppingCart, Filter, X } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const ProductSection = ({ id, cart, addToCart }) => {
   const [dolarOficial, setDolarOficial] = useState(null);
-  const allPlotters = [...plotters.inyeccion, ...plotters.corte];
+  const [activeFilter, setActiveFilter] = useState("all");
+  const [showFilters, setShowFilters] = useState(false);
 
-  const allPcs = [...pcs];
+  const allPlotters = [...plotters.inyeccion, ...plotters.corte];
 
   useEffect(() => {
     const fetchDolar = async () => {
@@ -19,7 +20,7 @@ const ProductSection = ({ id, cart, addToCart }) => {
         const res = await fetch("https://dolarapi.com/v1/dolares/oficial");
         const data = await res.json();
         console.log("Dólar Oficial:", data.venta);
-        setDolarOficial(data.venta); // guardamos en el state
+        setDolarOficial(data.venta);
       } catch (error) {
         console.error("Error al obtener la cotización:", error);
       }
@@ -27,6 +28,24 @@ const ProductSection = ({ id, cart, addToCart }) => {
 
     fetchDolar();
   }, []);
+
+  // Función para manejar el cambio de filtro
+  const handleFilterChange = (filter) => {
+    setActiveFilter(filter);
+    // Ocultar el panel de filtros en móviles después de seleccionar
+    if (window.innerWidth < 768) {
+      setShowFilters(false);
+    }
+  };
+
+  // Filtrar productos según el filtro activo
+  const filteredProducts = {
+    plotters: allPlotters,
+    papers: products,
+    pcs: pcs,
+    kitCameras: kitCameras.kits,
+    imouCams: imouCams.imous,
+  };
 
   return (
     <section id="productos" className="py-6 px-4 md:px-8 bg-gray-50">
@@ -53,493 +72,606 @@ const ProductSection = ({ id, cart, addToCart }) => {
           </span>
         </Link>
 
-        <div className="mt-16 text-center">
-          <h3 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-8">
-            <span className="border-b-4 border-blue-500 pb-2">
-              Nuestros Plotters
-            </span>
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
-            {allPlotters.map((plotter) => (
-              <div
-                key={plotter.id}
-                className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition"
-              >
-                <div className="h-48 overflow-hidden">
-                  <img
-                    src={plotter.image}
-                    alt={plotter.nombre}
-                    className="w-full h-full object-cover"
-                    onError={(e) => {
-                      e.target.onerror = null;
-                      e.target.src =
-                        "https://via.placeholder.com/300x200?text=Plotter+Image";
-                    }}
-                  />
-                </div>
+        {/* Filtros */}
+        <div className="mt-10 flex flex-col items-center">
+          <button
+            onClick={() => setShowFilters(!showFilters)}
+            className="md:hidden flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg mb-4"
+          >
+            <Filter size={18} />
+            {showFilters ? "Ocultar Filtros" : "Mostrar Filtros"}
+          </button>
 
-                <div className="p-6 flex flex-col justify-between h-full">
-                  <div>
-                    <div className="flex justify-between items-start">
-                      <h3 className="text-xl font-bold text-gray-900">
-                        {plotter.nombre}
-                      </h3>
-                      <span
-                        className={`${
-                          plotter.id <= 4
-                            ? "bg-blue-100 text-blue-800"
-                            : "bg-green-100 text-green-800"
-                        } text-sm font-semibold px-2.5 py-0.5 rounded`}
-                      >
-                        {plotter.id <= 4 ? "Inyección" : "Corte"}
-                      </span>
-                    </div>
+          <div
+            className={`${
+              showFilters ? "flex" : "hidden md:flex"
+            } flex-wrap justify-center gap-2 mb-8`}
+          >
+            <button
+              onClick={() => handleFilterChange("all")}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition ${
+                activeFilter === "all"
+                  ? "bg-blue-600 text-white"
+                  : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+              }`}
+            >
+              Todos los productos
+            </button>
+            <button
+              onClick={() => handleFilterChange("plotters")}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition ${
+                activeFilter === "plotters"
+                  ? "bg-blue-600 text-white"
+                  : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+              }`}
+            >
+              Plotters
+            </button>
+            <button
+              onClick={() => handleFilterChange("papers")}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition ${
+                activeFilter === "papers"
+                  ? "bg-blue-600 text-white"
+                  : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+              }`}
+            >
+              Papeles
+            </button>
+            <button
+              onClick={() => handleFilterChange("pcs")}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition ${
+                activeFilter === "pcs"
+                  ? "bg-blue-600 text-white"
+                  : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+              }`}
+            >
+              PCs
+            </button>
+            <button
+              onClick={() => handleFilterChange("kitCameras")}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition ${
+                activeFilter === "kitCameras"
+                  ? "bg-blue-600 text-white"
+                  : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+              }`}
+            >
+              Kits de Cámaras
+            </button>
+            <button
+              onClick={() => handleFilterChange("imouCams")}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition ${
+                activeFilter === "imouCams"
+                  ? "bg-blue-600 text-white"
+                  : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+              }`}
+            >
+              Cámaras IMOU
+            </button>
+          </div>
+        </div>
 
-                    <p className="mt-2 text-gray-600">{plotter.descripcion}</p>
+        {/* Sección de Plotters */}
+        {(activeFilter === "all" || activeFilter === "plotters") && (
+          <div className="mt-16 text-center">
+            <h3 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-8">
+              <span className="border-b-4 border-blue-500 pb-2">
+                Nuestros Plotters
+              </span>
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
+              {allPlotters.map((plotter) => (
+                <div
+                  key={plotter.id}
+                  className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition"
+                >
+                  <div className="h-48 overflow-hidden">
+                    <img
+                      src={plotter.image}
+                      alt={plotter.nombre}
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src =
+                          "https://via.placeholder.com/300x200?text=Plotter+Image";
+                      }}
+                    />
+                  </div>
 
-                    <div className="mt-4 text-sm text-gray-700 space-y-2">
-                      <div className="flex items-center justify-between">
-                        <p>
-                          <span className="font-semibold">Pre-venta(usd):</span>{" "}
-                          ${plotter.precio_pre_venta.toLocaleString()}
-                        </p>
-                        <p>
-                          <span className="font-semibold">pesos:</span> $
-                          {(
-                            plotter.precio_pre_venta * dolarOficial
-                          ).toLocaleString()}
-                        </p>
-                        <button
-                          onClick={() =>
-                            addToCart({
-                              ...plotter,
-                              quantity: 1,
-                              price: plotter.precio_pre_venta,
-                              name: plotter.nombre,
-                            })
-                          }
-                          className="bg-blue-600 text-white text-xs px-3 py-1 rounded hover:bg-blue-700 transition"
+                  <div className="p-6 flex flex-col justify-between h-full">
+                    <div>
+                      <div className="flex justify-between items-start">
+                        <h3 className="text-xl font-bold text-gray-900">
+                          {plotter.nombre}
+                        </h3>
+                        <span
+                          className={`${
+                            plotter.id <= 4
+                              ? "bg-blue-100 text-blue-800"
+                              : "bg-green-100 text-green-800"
+                          } text-sm font-semibold px-2.5 py-0.5 rounded`}
                         >
-                          Añadir
-                        </button>
+                          {plotter.id <= 4 ? "Inyección" : "Corte"}
+                        </span>
                       </div>
-                      <div className="flex items-center justify-between">
-                        <p>
-                          <span className="font-semibold">Stock actual:</span> $
-                          {plotter.precio_de_llegada.toLocaleString()}
-                        </p>
-                        <p>
-                          <span className="font-semibold">pesos:</span> $
-                          {(
-                            plotter.precio_de_llegada * dolarOficial
-                          ).toLocaleString()}
-                        </p>
-                        <button
-                          onClick={() =>
-                            addToCart({
-                              ...plotter,
-                              quantity: 1,
-                              price: plotter.precio_de_llegada,
-                              name: plotter.nombre,
-                            })
-                          }
-                          className="bg-green-600 text-white text-xs px-3 py-1 rounded hover:bg-green-700 transition"
-                        >
-                          Añadir
-                        </button>
+
+                      <p className="mt-2 text-gray-600">
+                        {plotter.descripcion}
+                      </p>
+
+                      <div className="mt-4 text-sm text-gray-700 space-y-2">
+                        <div className="flex items-center justify-between">
+                          <p>
+                            <span className="font-semibold">
+                              Pre-venta(usd):
+                            </span>{" "}
+                            ${plotter.precio_pre_venta.toLocaleString()}
+                          </p>
+                          <p>
+                            <span className="font-semibold">pesos:</span> $
+                            {dolarOficial
+                              ? (
+                                  plotter.precio_pre_venta * dolarOficial
+                                ).toLocaleString()
+                              : "Cargando..."}
+                          </p>
+                          <button
+                            onClick={() =>
+                              addToCart({
+                                ...plotter,
+                                quantity: 1,
+                                price: plotter.precio_pre_venta,
+                                name: plotter.nombre,
+                              })
+                            }
+                            className="bg-blue-600 text-white text-xs px-3 py-1 rounded hover:bg-blue-700 transition"
+                          >
+                            Añadir
+                          </button>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <p>
+                            <span className="font-semibold">
+                              Stock actual(usd):
+                            </span>{" "}
+                            ${plotter.precio_de_llegada.toLocaleString()}
+                          </p>
+                          <p>
+                            <span className="font-semibold">pesos:</span> $
+                            {dolarOficial
+                              ? (
+                                  plotter.precio_de_llegada * dolarOficial
+                                ).toLocaleString()
+                              : "Cargando..."}
+                          </p>
+                          <button
+                            onClick={() =>
+                              addToCart({
+                                ...plotter,
+                                quantity: 1,
+                                price: plotter.precio_de_llegada,
+                                name: plotter.nombre,
+                              })
+                            }
+                            className="bg-green-600 text-white text-xs px-3 py-1 rounded hover:bg-green-700 transition"
+                          >
+                            Añadir
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
-        <div className="mt-16 text-center">
-          <h3 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-8">
-            <span className="border-b-4 border-blue-500 pb-2">
-              Nuestros Papeles
-            </span>
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
-            {products.map((product) => (
-              <div
-                key={product.id}
-                className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition"
-              >
-                <div className="h-48 overflow-hidden">
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+        {/* Sección de Papeles */}
+        {(activeFilter === "all" || activeFilter === "papers") && (
+          <div className="mt-16 text-center">
+            <h3 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-8">
+              <span className="border-b-4 border-blue-500 pb-2">
+                Nuestros Papeles
+              </span>
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
+              {products.map((product) => (
+                <div
+                  key={product.id}
+                  className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition"
+                >
+                  <div className="h-48 overflow-hidden">
+                    <img
+                      src={product.image}
+                      alt={product.name}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
 
-                <div className="p-6 flex flex-col justify-between h-full">
-                  <div>
-                    <div className="flex justify-between items-start">
-                      <h3 className="text-xl font-bold text-gray-900">
-                        {product.name}
-                      </h3>
-                      <span className="bg-blue-100 text-blue-800 text-sm font-semibold px-2.5 py-0.5 rounded">
-                        {product.category}
-                      </span>
-                    </div>
-
-                    <p className="mt-2 text-gray-600">{product.description}</p>
-
-                    <div className="mt-4 text-sm text-gray-700 space-y-2">
-                      <div className="flex items-center justify-between">
-                        <p>
-                          Combo 5u: ${product.combos.combo5u.toLocaleString()}
-                        </p>
-                        <button
-                          onClick={() =>
-                            addToCart({
-                              ...product,
-                              quantity: 5,
-                              price: product.combos.combo5u,
-                            })
-                          }
-                          className="bg-blue-600 text-white text-xs px-3 py-1 rounded hover:bg-blue-700"
-                        >
-                          Añadir
-                        </button>
+                  <div className="p-6 flex flex-col justify-between h-full">
+                    <div>
+                      <div className="flex justify-between items-start">
+                        <h3 className="text-xl font-bold text-gray-900">
+                          {product.name}
+                        </h3>
+                        <span className="bg-blue-100 text-blue-800 text-sm font-semibold px-2.5 py-0.5 rounded">
+                          {product.category}
+                        </span>
                       </div>
-                      <div className="flex items-center justify-between">
-                        <p>
-                          Combo 15u: ${product.combos.combo15u.toLocaleString()}
-                        </p>
-                        <button
-                          onClick={() =>
-                            addToCart({
-                              ...product,
-                              quantity: 15,
-                              price: product.combos.combo15u,
-                            })
-                          }
-                          className="bg-blue-600 text-white text-xs px-3 py-1 rounded hover:bg-blue-700"
-                        >
-                          Añadir
-                        </button>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <p>
-                          Combo 30u: ${product.combos.combo30u.toLocaleString()}
-                        </p>
-                        <button
-                          onClick={() =>
-                            addToCart({
-                              ...product,
-                              quantity: 30,
-                              price: product.combos.combo30u,
-                            })
-                          }
-                          className="bg-blue-600 text-white text-xs px-3 py-1 rounded hover:bg-blue-700"
-                        >
-                          Añadir
-                        </button>
+
+                      <p className="mt-2 text-gray-600">
+                        {product.description}
+                      </p>
+
+                      <div className="mt-4 text-sm text-gray-700 space-y-2">
+                        <div className="flex items-center justify-between">
+                          <p>
+                            Combo 5u: ${product.combos.combo5u.toLocaleString()}
+                          </p>
+                          <button
+                            onClick={() =>
+                              addToCart({
+                                ...product,
+                                quantity: 5,
+                                price: product.combos.combo5u,
+                              })
+                            }
+                            className="bg-blue-600 text-white text-xs px-3 py-1 rounded hover:bg-blue-700"
+                          >
+                            Añadir
+                          </button>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <p>
+                            Combo 15u: $
+                            {product.combos.combo15u.toLocaleString()}
+                          </p>
+                          <button
+                            onClick={() =>
+                              addToCart({
+                                ...product,
+                                quantity: 15,
+                                price: product.combos.combo15u,
+                              })
+                            }
+                            className="bg-blue-600 text-white text-xs px-3 py-1 rounded hover:bg-blue-700"
+                          >
+                            Añadir
+                          </button>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <p>
+                            Combo 30u: $
+                            {product.combos.combo30u.toLocaleString()}
+                          </p>
+                          <button
+                            onClick={() =>
+                              addToCart({
+                                ...product,
+                                quantity: 30,
+                                price: product.combos.combo30u,
+                              })
+                            }
+                            className="bg-blue-600 text-white text-xs px-3 py-1 rounded hover:bg-blue-700"
+                          >
+                            Añadir
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
-        <div className="mt-16 text-center">
-          <h3 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-8">
-            <span className="border-b-4 border-blue-500 pb-2">
-              Nuestras PCs
-            </span>
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
-            {pcs.map((pc) => (
-              <div
-                key={pc.id}
-                className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition"
-              >
-                <div className="h-48 overflow-hidden flex items-center justify-center bg-gray-100">
-                  <img
-                    src={pc.image}
-                    alt={pc.name}
-                    className="max-w-full object-contain"
-                  />
-                </div>
+        {/* Sección de PCs */}
+        {(activeFilter === "all" || activeFilter === "pcs") && (
+          <div className="mt-16 text-center">
+            <h3 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-8">
+              <span className="border-b-4 border-blue-500 pb-2">
+                Nuestras PCs
+              </span>
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
+              {pcs.map((pc) => (
+                <div
+                  key={pc.id}
+                  className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition"
+                >
+                  <div className="h-48 overflow-hidden flex items-center justify-center bg-gray-100">
+                    <img
+                      src={pc.image}
+                      alt={pc.name}
+                      className="max-w-full object-contain"
+                    />
+                  </div>
 
-                <div className="p-6 flex flex-col justify-between h-full">
-                  <div>
-                    <div className="flex justify-between items-start">
-                      <h3 className="text-xl font-bold text-gray-900">
-                        {pc.name}
-                      </h3>
-                      <span className="bg-green-100 text-green-800 text-sm font-semibold px-2.5 py-0.5 rounded">
-                        {pc.category}
-                      </span>
-                    </div>
-
-                    <p className="mt-2 text-gray-600">{pc.description}</p>
-
-                    <div className="mt-4 text-sm text-gray-700 space-y-1 text-left">
-                      <p>
-                        <strong>Procesador:</strong> {pc.specs.procesador}
-                      </p>
-                      <p>
-                        <strong>Gráficos:</strong> {pc.specs.graficos}
-                      </p>
-                      <p>
-                        <strong>RAM:</strong> {pc.specs.ram}
-                      </p>
-                      <p>
-                        <strong>Almacenamiento:</strong>{" "}
-                        {pc.specs.almacenamiento}
-                      </p>
-                      <p>
-                        <strong>Mother:</strong> {pc.specs.mother}
-                      </p>
-                      <p>
-                        <strong>Sistema:</strong> {pc.specs.sistema}
-                      </p>
-                    </div>
-
-                    <div className="mt-4 text-sm text-gray-700 space-y-2">
-                      <div className="flex items-center justify-between">
-                        <p>
-                          Combo Básico: ${pc.combos.basico.toLocaleString()}
-                        </p>
-                        <button
-                          onClick={() =>
-                            addToCart({
-                              ...pc,
-                              quantity: 1,
-                              price: pc.combos.basico,
-                            })
-                          }
-                          className="bg-blue-600 text-white text-xs px-3 py-1 rounded hover:bg-blue-700"
-                        >
-                          Añadir
-                        </button>
+                  <div className="p-6 flex flex-col justify-between h-full">
+                    <div>
+                      <div className="flex justify-between items-start">
+                        <h3 className="text-xl font-bold text-gray-900">
+                          {pc.name}
+                        </h3>
+                        <span className="bg-green-100 text-green-800 text-sm font-semibold px-2.5 py-0.5 rounded">
+                          {pc.category}
+                        </span>
                       </div>
-                      <div className="flex items-center justify-between">
+
+                      <p className="mt-2 text-gray-600">{pc.description}</p>
+
+                      <div className="mt-4 text-sm text-gray-700 space-y-1 text-left">
                         <p>
-                          Con Monitor: ${pc.combos.conMonitor.toLocaleString()}
+                          <strong>Procesador:</strong> {pc.specs.procesador}
                         </p>
-                        <button
-                          onClick={() =>
-                            addToCart({
-                              ...pc,
-                              quantity: 1,
-                              price: pc.combos.conMonitor,
-                            })
-                          }
-                          className="bg-blue-600 text-white text-xs px-3 py-1 rounded hover:bg-blue-700"
-                        >
-                          Añadir
-                        </button>
+                        <p>
+                          <strong>Gráficos:</strong> {pc.specs.graficos}
+                        </p>
+                        <p>
+                          <strong>RAM:</strong> {pc.specs.ram}
+                        </p>
+                        <p>
+                          <strong>Almacenamiento:</strong>{" "}
+                          {pc.specs.almacenamiento}
+                        </p>
+                        <p>
+                          <strong>Mother:</strong> {pc.specs.mother}
+                        </p>
+                        <p>
+                          <strong>Sistema:</strong> {pc.specs.sistema}
+                        </p>
+                      </div>
+
+                      <div className="mt-4 text-sm text-gray-700 space-y-2">
+                        <div className="flex items-center justify-between">
+                          <p>
+                            Combo Básico: ${pc.combos.basico.toLocaleString()}
+                          </p>
+                          <button
+                            onClick={() =>
+                              addToCart({
+                                ...pc,
+                                quantity: 1,
+                                price: pc.combos.basico,
+                              })
+                            }
+                            className="bg-blue-600 text-white text-xs px-3 py-1 rounded hover:bg-blue-700"
+                          >
+                            Añadir
+                          </button>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <p>
+                            Con Monitor: $
+                            {pc.combos.conMonitor.toLocaleString()}
+                          </p>
+                          <button
+                            onClick={() =>
+                              addToCart({
+                                ...pc,
+                                quantity: 1,
+                                price: pc.combos.conMonitor,
+                              })
+                            }
+                            className="bg-blue-600 text-white text-xs px-3 py-1 rounded hover:bg-blue-700"
+                          >
+                            Añadir
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
-        <div className="mt-16 text-center">
-          <h3 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-8">
-            <span className="border-b-4 border-blue-500 pb-2">
-              Nuestros Kits de Cámaras
-            </span>
-          </h3>
+        {/* Sección de Kits de Cámaras */}
+        {(activeFilter === "all" || activeFilter === "kitCameras") && (
+          <div className="mt-16 text-center">
+            <h3 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-8">
+              <span className="border-b-4 border-blue-500 pb-2">
+                Nuestros Kits de Cámaras
+              </span>
+            </h3>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
-            {kitCameras.kits.map((kit) => (
-              <div
-                key={kit.id}
-                className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition"
-              >
-                <div className="-48 overflow-hidden">
-                  <img
-                    src={kit.image}
-                    alt={kit.name}
-                    className="h-full object-cover"
-                    onError={(e) => {
-                      e.target.onerror = null;
-                      e.target.src =
-                        "https://via.placeholder.com/300x200?text=Kit+de+Cámaras";
-                    }}
-                  />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
+              {kitCameras.kits.map((kit) => (
+                <div
+                  key={kit.id}
+                  className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition"
+                >
+                  <div className="-48 overflow-hidden">
+                    <img
+                      src={kit.image}
+                      alt={kit.name}
+                      className="h-full object-cover"
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src =
+                          "https://via.placeholder.com/300x200?text=Kit+de+Cámaras";
+                      }}
+                    />
+                  </div>
+
+                  <div className="p-6 flex flex-col justify-between h-full">
+                    <div>
+                      <div className="flex justify-between items-start">
+                        <h3 className="text-xl font-bold text-gray-900">
+                          {kit.name}
+                        </h3>
+                        <span className="bg-blue-100 text-blue-800 text-sm font-semibold px-2.5 py-0.5 rounded">
+                          {kit.category}
+                        </span>
+                      </div>
+
+                      <p className="mt-2 text-gray-600">{kit.description}</p>
+
+                      <div className="mt-4 text-sm text-gray-700 space-y-2">
+                        <div className="flex items-center justify-between">
+                          <p>
+                            <span className="font-semibold">Kit:</span> $
+                            {dolarOficial
+                              ? (kit.combos.kit * dolarOficial).toLocaleString()
+                              : "Cargando..."}
+                          </p>
+
+                          <button
+                            onClick={() =>
+                              addToCart({
+                                ...kit,
+                                quantity: 1,
+                                price: kit.combos.kit,
+                                name: kit.name,
+                              })
+                            }
+                            className="bg-blue-600 text-white text-xs px-3 py-1 rounded hover:bg-blue-700 transition"
+                          >
+                            Añadir
+                          </button>
+                        </div>
+
+                        <div className="flex items-center justify-between">
+                          <p>
+                            <span className="font-semibold">
+                              + instalación:
+                            </span>{" "}
+                            {dolarOficial
+                              ? (
+                                  kit.combos.kit *
+                                  dolarOficial *
+                                  1.5
+                                ).toLocaleString()
+                              : "Cargando..."}
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Especificaciones */}
+                      <div className="mt-4 text-xs text-left text-gray-500 space-y-1">
+                        <p>
+                          <strong>DVR:</strong> {kit.specs.dvr}
+                        </p>
+                        <p>
+                          <strong>Cámaras:</strong> {kit.specs.cameras}
+                        </p>
+                        <p>
+                          <strong>Balunes:</strong> {kit.specs.baluns}
+                        </p>
+                        <p>
+                          <strong>Plugs:</strong> {kit.specs.plugs}
+                        </p>
+                        <p>
+                          <strong>Splitter:</strong> {kit.specs.splitter}
+                        </p>
+                        <p>
+                          <strong>Cable:</strong> {kit.specs.cable}
+                        </p>
+                        <p>
+                          <strong>Fuente:</strong> {kit.specs.power}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+              ))}
+            </div>
+          </div>
+        )}
 
-                <div className="p-6 flex flex-col justify-between h-full">
-                  <div>
+        {/* Sección de Cámaras IMOU */}
+        {(activeFilter === "all" || activeFilter === "imouCams") && (
+          <div className="mt-20 text-center">
+            <h3 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-10">
+              <span className="border-b-4 border-green-500 pb-2">
+                Cámaras IMOU Inteligentes
+              </span>
+            </h3>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 px-4">
+              {imouCams.imous.map((cam) => (
+                <div
+                  key={cam.id}
+                  className="bg-white rounded-2xl shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition"
+                >
+                  {/* Imagen */}
+                  <div className="h-56 bg-gray-50 flex items-center justify-center">
+                    <img
+                      src={cam.image}
+                      alt={cam.name}
+                      className="h-full object-contain"
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src =
+                          "https://via.placeholder.com/300x200?text=Cámara+IMOU";
+                      }}
+                    />
+                  </div>
+
+                  {/* Contenido */}
+                  <div className="p-6 flex flex-col h-full">
+                    {/* Header */}
                     <div className="flex justify-between items-start">
-                      <h3 className="text-xl font-bold text-gray-900">
-                        {kit.name}
+                      <h3 className="text-lg font-bold text-gray-900">
+                        {cam.name}
                       </h3>
-                      <span className="bg-blue-100 text-blue-800 text-sm font-semibold px-2.5 py-0.5 rounded">
-                        {kit.category}
+                      <span className="bg-green-100 text-green-800 text-xs font-semibold px-2 py-1 rounded">
+                        {cam.category}
                       </span>
                     </div>
 
-                    <p className="mt-2 text-gray-600">{kit.description}</p>
+                    {/* Descripción */}
+                    <p className="mt-3 text-gray-600 text-sm">
+                      {cam.description}
+                    </p>
 
-                    <div className="mt-4 text-sm text-gray-700 space-y-2">
+                    {/* Precios */}
+                    <div className="mt-5 space-y-3 text-sm text-gray-700">
                       <div className="flex items-center justify-between">
                         <p>
-                          <span className="font-semibold">Kit:</span> $
-                          {(kit.combos.kit * dolarOficial).toLocaleString()}
+                          <span className="font-semibold">Unidad:</span> $
+                          {dolarOficial
+                            ? (cam.price * dolarOficial).toLocaleString()
+                            : "Cargando..."}
                         </p>
-
                         <button
                           onClick={() =>
                             addToCart({
-                              ...kit,
+                              ...cam,
                               quantity: 1,
-                              price: kit.combos.kit,
-                              name: kit.name,
+                              price: cam.combos.unidad,
+                              name: cam.name,
                             })
                           }
-                          className="bg-blue-600 text-white text-xs px-3 py-1 rounded hover:bg-blue-700 transition"
+                          className="flex items-center gap-1 bg-green-600 text-white text-xs px-3 py-1.5 rounded hover:bg-green-700 transition"
                         >
+                          <ShoppingCart size={14} />
                           Añadir
                         </button>
                       </div>
-
-                      <div className="flex items-center justify-between">
-                        <p>
-                          <span className="font-semibold">+ instalación:</span>{" "}
-                          {(
-                            kit.combos.kit *
-                            dolarOficial *
-                            1.5
-                          ).toLocaleString()}
-                        </p>
-                      </div>
                     </div>
 
-                    {/* Especificaciones */}
+                    {/* Specs */}
                     <div className="mt-4 text-xs text-left text-gray-500 space-y-1">
-                      <p>
-                        <strong>DVR:</strong> {kit.specs.dvr}
-                      </p>
-                      <p>
-                        <strong>Cámaras:</strong> {kit.specs.cameras}
-                      </p>
-                      <p>
-                        <strong>Balunes:</strong> {kit.specs.baluns}
-                      </p>
-                      <p>
-                        <strong>Plugs:</strong> {kit.specs.plugs}
-                      </p>
-                      <p>
-                        <strong>Splitter:</strong> {kit.specs.splitter}
-                      </p>
-                      <p>
-                        <strong>Cable:</strong> {kit.specs.cable}
-                      </p>
-                      <p>
-                        <strong>Fuente:</strong> {kit.specs.power}
-                      </p>
+                      {Object.entries(cam.specs).map(([key, value]) => (
+                        <p key={key}>
+                          <strong>
+                            {key.charAt(0).toUpperCase() + key.slice(1)}:
+                          </strong>{" "}
+                          {value}
+                        </p>
+                      ))}
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
-        <div className="mt-20 text-center">
-          <h3 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-10">
-            <span className="border-b-4 border-green-500 pb-2">
-              Cámaras IMOU Inteligentes
-            </span>
-          </h3>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 px-4">
-            {imouCams.imous.map((cam) => (
-              <div
-                key={cam.id}
-                className="bg-white rounded-2xl shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition"
-              >
-                {/* Imagen */}
-                <div className="h-56 bg-gray-50 flex items-center justify-center">
-                  <img
-                    src={cam.image}
-                    alt={cam.name}
-                    className="h-full object-contain"
-                    onError={(e) => {
-                      e.target.onerror = null;
-                      e.target.src =
-                        "https://via.placeholder.com/300x200?text=Cámara+IMOU";
-                    }}
-                  />
-                </div>
-
-                {/* Contenido */}
-                <div className="p-6 flex flex-col h-full">
-                  {/* Header */}
-                  <div className="flex justify-between items-start">
-                    <h3 className="text-lg font-bold text-gray-900">
-                      {cam.name}
-                    </h3>
-                    <span className="bg-green-100 text-green-800 text-xs font-semibold px-2 py-1 rounded">
-                      {cam.category}
-                    </span>
-                  </div>
-
-                  {/* Descripción */}
-                  <p className="mt-3 text-gray-600 text-sm">
-                    {cam.description}
-                  </p>
-
-                  {/* Precios */}
-                  <div className="mt-5 space-y-3 text-sm text-gray-700">
-                    <div className="flex items-center justify-between">
-                      <p>
-                        <span className="font-semibold">Unidad:</span> $
-                        {(cam.price * dolarOficial).toLocaleString()}
-                      </p>
-                      {/* <p>
-                        <span className="font-semibold">Kit:</span> $
-                        {(kit.combos.kit * dolarOficial).toLocaleString()}
-                      </p> */}
-                      <button
-                        onClick={() =>
-                          addToCart({
-                            ...cam,
-                            quantity: 1,
-                            price: cam.combos.unidad,
-                            name: cam.name,
-                          })
-                        }
-                        className="flex items-center gap-1 bg-green-600 text-white text-xs px-3 py-1.5 rounded hover:bg-green-700 transition"
-                      >
-                        <ShoppingCart size={14} />
-                        Añadir
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Specs */}
-                  <div className="mt-4 text-xs text-left text-gray-500 space-y-1">
-                    {Object.entries(cam.specs).map(([key, value]) => (
-                      <p key={key}>
-                        <strong>
-                          {key.charAt(0).toUpperCase() + key.slice(1)}:
-                        </strong>{" "}
-                        {value}
-                      </p>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
+        {/* Sección de características (siempre visible) */}
         <div className="mt-24 grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="bg-white p-8 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition">
             <div className="bg-blue-100 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
@@ -618,472 +750,3 @@ const ProductSection = ({ id, cart, addToCart }) => {
 };
 
 export default ProductSection;
-
-/* import React from "react";
-import {
-  FaLinkedin,
-  FaGithub,
-  FaPhone,
-  FaEnvelope,
-  FaTools,
-  FaLaptopCode,
-  FaMicrochip,
-  FaChartLine,
-} from "react-icons/fa";
-import luis from "../assets/luis.jpg";
-
-const ProductSection = () => {
-  return (
-    <div className="bg-gradient-to-b from-blue-50 to-white min-h-screen py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-12 mb-16">
-          <div className="md:w-1/2">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
-              Luis Patty Mamani <br />
-              <span className="text-blue-600">Ingeniero Electrónico</span>
-            </h1>
-
-            <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-              Especialista en desarrollo web, automatización industrial y
-              asesoramiento tecnológico. Combinando conocimientos de ingeniería
-              electrónica con habilidades avanzadas en programación para ofrecer
-              soluciones integrales a tus necesidades tecnológicas.
-            </p>
-
-            <div className="flex flex-wrap gap-4 mb-8">
-              <a
-                href="tel:+5491162020911"
-                className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition duration-300 flex items-center gap-2"
-              >
-                <FaPhone /> 11-6202-0911
-              </a>
-              <a
-                href="mailto:ing.lp.tech@gmail.com"
-                className="border border-blue-600 text-blue-600 hover:bg-blue-50 font-medium py-3 px-6 rounded-lg transition duration-300 flex items-center gap-2"
-              >
-                <FaEnvelope /> Contactar por email
-              </a>
-            </div>
-
-            <div className="flex items-center space-x-6">
-              <a
-                href="https://www.linkedin.com/in/luis-patty-mamani/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <FaLinkedin className="text-2xl text-blue-600 hover:text-blue-800 transition" />
-              </a>
-              <a
-                href="https://github.com/ing-lp-tech"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <FaGithub className="text-2xl text-gray-800 hover:text-black transition" />
-              </a>
-            </div>
-          </div>
-
-          <div className="md:w-1/2 relative">
-            <div className="w-full h-80 bg-gray-200 rounded-xl shadow-2xl border border-gray-300 flex items-center justify-center">
-              <img src={luis} alt="Perfil" />
-            </div>
-          </div>
-        </div>
-        <div className="mb-20">
-          <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">
-            Servicios Profesionales
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="bg-white p-6 rounded-xl shadow-md border border-gray-200 hover:shadow-lg transition">
-              <div className="text-blue-600 mb-4">
-                <FaChartLine className="text-4xl" />
-              </div>
-              <h3 className="text-xl font-semibold mb-3">
-                Asesoramiento Tecnológico en Importaciones
-              </h3>
-              <p className="text-gray-600 mb-4">
-                Soluciones personalizadas para optimizar procesos,
-                implementación de nuevas tecnologías y asesoramiento en
-                importación de equipos tecnológicos.
-              </p>
-              <ul className="text-gray-600 space-y-2">
-                <li className="flex items-start">
-                  <span className="text-blue-500 mr-2">•</span>
-                  Importación de maquinaria desde China
-                </li>
-                <li className="flex items-start">
-                  <span className="text-blue-500 mr-2">•</span>
-                  Optimización de procesos
-                </li>
-                <li className="flex items-start">
-                  <span className="text-blue-500 mr-2">•</span>
-                  Análisis de costos y presupuestos
-                </li>
-              </ul>
-            </div>
-
-            <div className="bg-white p-6 rounded-xl shadow-md border border-gray-200 hover:shadow-lg transition">
-              <div className="text-blue-600 mb-4">
-                <FaLaptopCode className="text-4xl" />
-              </div>
-              <h3 className="text-xl font-semibold mb-3">Desarrollo Web</h3>
-              <p className="text-gray-600 mb-4">
-                Creación de sitios web profesionales, sistemas de gestión de
-                datos y aplicaciones web personalizadas con tecnologías modernas
-                como React, Material UI y más.
-              </p>
-              <ul className="text-gray-600 space-y-2">
-                <li className="flex items-start">
-                  <span className="text-blue-500 mr-2">•</span>
-                  Páginas web responsivas
-                </li>
-                <li className="flex items-start">
-                  <span className="text-blue-500 mr-2">•</span>
-                  Sistemas de gestión de datos
-                </li>
-                <li className="flex items-start">
-                  <span className="text-blue-500 mr-2">•</span>
-                  Planillas automatizadas
-                </li>
-              </ul>
-            </div>
-
-            <div className="bg-white p-6 rounded-xl shadow-md border border-gray-200 hover:shadow-lg transition">
-              <div className="text-blue-600 mb-4">
-                <FaMicrochip className="text-4xl" />
-              </div>
-              <h3 className="text-xl font-semibold mb-3">
-                Automatización Industrial
-              </h3>
-              <p className="text-gray-600 mb-4">
-                Diseño e implementación de sistemas automatizados, desarrollo de
-                prototipos y soluciones electrónicas personalizadas.
-              </p>
-              <ul className="text-gray-600 space-y-2">
-                <li className="flex items-start">
-                  <span className="text-blue-500 mr-2">•</span>
-                  Diseño de tableros eléctricos
-                </li>
-
-                <li className="flex items-start">
-                  <span className="text-blue-500 mr-2">•</span>
-                  Desarrollo de prototipos electrónicos
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div className="mb-20">
-          <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">
-            Formación Académica
-          </h2>
-
-          <div className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200">
-            <div className="p-6">
-              <div className="mb-6 pb-6 border-b border-gray-200">
-                <h3 className="text-xl font-semibold text-blue-600 mb-2">
-                  Ingeniería Electrónica
-                </h3>
-                <p className="text-gray-700 font-medium">
-                  Universidad Nacional de La Matanza (UNLAM)
-                </p>
-                <p className="text-gray-500">2014 - 2022 | Graduado</p>
-              </div>
-
-              <div className="mb-6 pb-6 border-b border-gray-200">
-                <h3 className="text-xl font-semibold text-blue-600 mb-2">
-                  Técnico Superior en Electrónica
-                </h3>
-                <p className="text-gray-700 font-medium">
-                  Universidad Nacional de La Matanza (UNLAM)
-                </p>
-                <p className="text-gray-500">2014 - 2019 | Graduado</p>
-              </div>
-
-              <div className="mb-6 pb-6 border-b border-gray-200">
-                <h3 className="text-xl font-semibold text-blue-600 mb-2">
-                  Desarrollo Web Full Stack
-                </h3>
-                <p className="text-gray-700 font-medium">
-                  Universidad Tecnológica Nacional (UTN)
-                </p>
-                <p className="text-gray-500">2023 - 2024 | Graduado</p>
-              </div>
-
-              <div>
-                <h3 className="text-xl font-semibold text-blue-600 mb-2">
-                  Curso de Automatización con PLC
-                </h3>
-                <p className="text-gray-700 font-medium">
-                  Universidad Nacional de La Matanza (UNLAM)
-                </p>
-                <p className="text-gray-500">2019 | Graduado</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="bg-blue-600 rounded-xl p-8 md:p-12 text-center text-white mb-20">
-          <h2 className="text-2xl md:text-3xl font-bold mb-6">
-            ¿Necesitas una solución tecnológica a medida?
-          </h2>
-          <p className="text-lg md:text-xl mb-8 max-w-3xl mx-auto">
-            Desde desarrollo web hasta asesoramiento en importación de
-            tecnología, puedo ayudarte a encontrar la mejor solución para tu
-            negocio.
-          </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <a
-              href="tel:+5491162020911"
-              className="bg-white text-blue-600 hover:bg-blue-50 font-bold py-4 px-8 rounded-lg transition duration-300 flex items-center justify-center gap-2"
-            >
-              <FaPhone /> Llamar ahora
-            </a>
-            <a
-              href="mailto:ing.lp.tech@gmail.com"
-              className="border border-white text-white hover:bg-blue-700 font-bold py-4 px-8 rounded-lg transition duration-300 flex items-center justify-center gap-2"
-            >
-              <FaEnvelope /> Enviar email
-            </a>
-          </div>
-          <p className="mt-6 text-blue-100">
-            También disponible para consultas por WhatsApp al 11-6202-0911
-          </p>
-        </div>
-
-        <div className="mb-20">
-          <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">
-            Habilidades y Experiencia
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-white p-6 rounded-xl shadow-md border border-gray-200">
-              <h3 className="text-xl font-semibold mb-6 text-blue-600">
-                Habilidades Técnicas
-              </h3>
-
-              <div className="space-y-6">
-                <div>
-                  <h4 className="font-medium mb-2">Desarrollo Web</h4>
-                  <div className="w-full bg-gray-200 rounded-full h-2.5">
-                    <div
-                      className="bg-blue-600 h-2.5 rounded-full"
-                      style={{ width: "90%" }}
-                    ></div>
-                  </div>
-                  <p className="text-sm text-gray-500 mt-1">
-                    HTML, CSS, JavaScript, React
-                  </p>
-                </div>
-
-                <div>
-                  <h4 className="font-medium mb-2">Programación</h4>
-                  <div className="w-full bg-gray-200 rounded-full h-2.5">
-                    <div
-                      className="bg-blue-600 h-2.5 rounded-full"
-                      style={{ width: "85%" }}
-                    ></div>
-                  </div>
-                  <p className="text-sm text-gray-500 mt-1">
-                    C/C++, Java, Python
-                  </p>
-                </div>
-
-                <div>
-                  <h4 className="font-medium mb-2">Diseño Electrónico</h4>
-                  <div className="w-full bg-gray-200 rounded-full h-2.5">
-                    <div
-                      className="bg-blue-600 h-2.5 rounded-full"
-                      style={{ width: "90%" }}
-                    ></div>
-                  </div>
-                  <p className="text-sm text-gray-500 mt-1">
-                    Proteus, AutoCAD, Inventor
-                  </p>
-                </div>
-
-                <div>
-                  <h4 className="font-medium mb-2">
-                    Automatización Industrial
-                  </h4>
-                  <div className="w-full bg-gray-200 rounded-full h-2.5">
-                    <div
-                      className="bg-blue-600 h-2.5 rounded-full"
-                      style={{ width: "80%" }}
-                    ></div>
-                  </div>
-                  <p className="text-sm text-gray-500 mt-1">
-                    PLC, Electroneumática
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white p-6 rounded-xl shadow-md border border-gray-200">
-              <h3 className="text-xl font-semibold mb-6 text-blue-600">
-                Experiencia Relevante
-              </h3>
-
-              <div className="space-y-6">
-                <div>
-                  <h4 className="font-bold">Coordinador Sector Ingeniería</h4>
-                  <p className="text-gray-700">Sbe Tecnologia Medica</p>
-                  <ul className="mt-2 text-gray-600 list-disc list-inside space-y-1">
-                    <li>Desarrollo de placas electrónicas y prototipos</li>
-                    <li>Mantenimiento de equipos médicos complejos</li>
-                    <li>Gestión de inventario y coordinación de equipos</li>
-                  </ul>
-                </div>
-                <div>
-                  <h4 className="font-bold">Coordinador Sector Ingeniería</h4>
-                  <p className="text-gray-700">Cardiopack</p>
-                  <ul className="mt-2 text-gray-600 list-disc list-inside space-y-1">
-                    <li>Desarrollo de placas electrónicas y prototipos</li>
-                    <li>Mantenimiento de equipos médicos complejos</li>
-                    <li>Gestión de inventario y coordinación de equipos</li>
-                  </ul>
-                </div>
-
-                <div>
-                  <h4 className="font-bold">Desarrollador Frontend</h4>
-                  <p className="text-gray-700">GM2 </p>
-                  <ul className="mt-2 text-gray-600 list-disc list-inside space-y-1">
-                    <li>Desarrollo con React, Material UI, Chakra UI</li>
-                    <li>Optimización de experiencia de usuario</li>
-                    <li>Gestión de proyectos con Jira y Bitbucket</li>
-                  </ul>
-                </div>
-
-                <div>
-                  <h4 className="font-bold">
-                    Ingeniero de Sistemas de Monitoreo
-                  </h4>
-                  <p className="text-gray-700">
-                    LP-TECH (Freelance) | 2021 - Presente
-                  </p>
-                  <ul className="mt-2 text-gray-600 list-disc list-inside space-y-1">
-                    <li>Diseño e implementación de sistemas de monitoreo</li>
-                    <li>Análisis de costos y presupuestos</li>
-                    <li>Resolución de problemas técnicos complejos</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="text-center">
-          <h2 className="text-3xl font-bold text-gray-900 mb-6">
-            ¿Listo para comenzar tu proyecto?
-          </h2>
-          <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-            Contáctame para discutir cómo puedo ayudarte con soluciones web,
-            asesoramiento tecnológico o desarrollo de sistemas electrónicos
-            personalizados.
-          </p>
-          <a
-            href="tel:+5491162020911"
-            className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-lg transition duration-300 text-lg"
-          >
-            <FaPhone className="inline mr-2" /> 11-6202-0911
-          </a>
-          <p className="mt-4 text-gray-500">
-            También disponible para consultas sobre importación de tecnología
-            desde China
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default ProductSection; */
-
-// Al inicio del archivo (importaciones)
-
-// ProductSection.jsx
-/* import React, { useState } from "react";
-import { FaPaperPlane } from "react-icons/fa";
-
-const ProductSection = () => {
-  const [input, setInput] = useState("");
-  const [chat, setChat] = useState([]);
-  const [loading, setLoading] = useState(false);
-
-  const sendMessage = async () => {
-    if (!input.trim()) return;
-
-    const userMessage = { role: "user", content: input };
-    setChat((prev) => [...prev, userMessage]);
-    setInput("");
-    setLoading(true);
-
-    try {
-      const res = await fetch("http://localhost:5000/api/chat", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ prompt: input }), // ✅ corregido aquí
-      });
-
-      const data = await res.json();
-      const aiMessage = { role: "assistant", content: data.message };
-      setChat((prev) => [...prev, aiMessage]);
-    } catch (err) {
-      console.error("Error al obtener respuesta:", err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  return (
-    <div className="bg-white min-h-screen py-12 px-4">
-      <div className="max-w-4xl mx-auto">
-        <h2 className="text-2xl font-bold text-center mb-4">
-          Asistente LP-TECH
-        </h2>
-        <div className="h-64 overflow-y-auto bg-gray-50 border rounded-lg p-4 mb-4 space-y-2">
-          {chat.map((msg, i) => (
-            <div
-              key={i}
-              className={`p-3 rounded-lg max-w-xl ${
-                msg.role === "user"
-                  ? "bg-blue-100 text-right ml-auto"
-                  : "bg-gray-200 text-left"
-              }`}
-            >
-              {msg.content}
-            </div>
-          ))}
-          {loading && (
-            <div className="bg-gray-200 p-3 rounded-lg text-left max-w-xl">
-              <span className="italic text-gray-500">Escribiendo...</span>
-            </div>
-          )}
-        </div>
-
-        <div className="flex items-center gap-2">
-          <input
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-            placeholder="Escribe tu pregunta..."
-            className="flex-1 border border-gray-300 rounded-lg px-4 py-2"
-          />
-          <button
-            onClick={sendMessage}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center gap-2"
-          >
-            <FaPaperPlane />
-            Enviar
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default ProductSection;
- */
