@@ -4,6 +4,7 @@ import plotter2 from "../assets/plotter2.jpg";
 import React, { useState } from "react";
 import avatarLuisPatty from "../assets/avatarLuisPattyJpg.jpg";
 import logoluisys from "../assets/LogoLuisys.png";
+import llegoIngeJPG from "../assets/llegoIngepng.png";
 
 const HeroSection = ({ id }) => {
   const phoneNumber = "5491162020911";
@@ -125,8 +126,8 @@ const HeroSection = ({ id }) => {
               <div className="md:w-1/2">
                 <div className="items-center justify-between">
                   <img
-                    className="w-full rounded-xl shadow-2xl border border-gray-200"
-                    src={logoluisys}
+                    className="w-full  "
+                    src={llegoIngeJPG}
                     alt="Plotter industrial en funcionamiento"
                   />
                 </div>
@@ -155,12 +156,12 @@ const HeroSection = ({ id }) => {
                   <div className="flex -space-x-2">
                     {/* Iconos de clientes o marcas */}
                   </div>
-                  <div className="text-sm text-gray-500">
+                  {/* <div className="text-sm text-gray-500">
                     <span className="font-semibold text-gray-700">
                       +100 talleres
                     </span>{" "}
                     confían en nuestros productos
-                  </div>
+                  </div> */}
                 </div>
               </div>
 
