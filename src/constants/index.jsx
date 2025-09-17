@@ -376,7 +376,7 @@ export const plotters = {
       id: 6,
       nombre: "Cutting Plotter 125cm",
       image: plotterdecorte1,
-      precio_pre_venta: 800,
+      precio_pre_venta: 875,
       precio_de_llegada: 1000,
       descripcion:
         "Sistema de corte de 125cm que utiliza lapiceras en lugar de cartuchos, reduciendo costos operativos. Perfecto para talleres que buscan economía sin sacrificar precisión en el tizado de moldes.",
@@ -395,6 +395,7 @@ export const plotters = {
 
 /* export const plotters = {
   inyeccion: [
+  
     {
       id: 1,
       nombre: "Inject Plotter 190cm HP45",
