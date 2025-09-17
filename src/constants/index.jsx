@@ -329,8 +329,8 @@ export const plotters = {
       id: 1,
       nombre: "Inject Plotter 190cm HP45",
       image: injectplotterhp45,
-      precio_pre_venta: 3000,
-      precio_de_llegada: 4000,
+      precio_pre_venta: 2865,
+      precio_de_llegada: 3800,
       descripcion:
         "Plotter de inyección de tinta de 190cm con tecnología HP45 para tizado de patrones de ropa. Imprime en ambos sentidos (1m/min) . Ideal para talleres con alta demanda de producción.",
     },
@@ -338,8 +338,8 @@ export const plotters = {
       id: 2,
       nombre: "Inject Plotter 190cm EPSON",
       image: injectplotterepson,
-      precio_pre_venta: 3150,
-      precio_de_llegada: 4100,
+      precio_pre_venta: 3008,
+      precio_de_llegada: 3900,
       descripcion:
         "Plotter profesional de 190cm con cabezales Epson RECARGABLES para tizado textil. Ofrece impresión bidireccional (1m/min). Perfecto para patrones en confección de ropa.",
     },
@@ -347,8 +347,8 @@ export const plotters = {
       id: 3,
       nombre: "Inject Plotter 200cm HP45",
       image: injectplotterhp45,
-      precio_pre_venta: 3450,
-      precio_de_llegada: 4500,
+      precio_pre_venta: 3294,
+      precio_de_llegada: 4300,
       descripcion:
         "Plotter de inyección de tinta de 200cm con tecnología HP45 para tizado de patrones de ropa. Imprime en ambos sentidos (1m/min) . Ideal para talleres con alta demanda de producción. Para talleres que trabajan con prendas de gran tamaño.",
     },
@@ -356,8 +356,8 @@ export const plotters = {
       id: 4,
       nombre: "Inject Plotter 200cm EPSON",
       image: injectplotterepson,
-      precio_pre_venta: 3650,
-      precio_de_llegada: 4800,
+      precio_pre_venta: 3485,
+      precio_de_llegada: 4500,
       descripcion:
         "Plotter profesional de 190cm con cabezales Epson RECARGABLES para tizado textil. Ofrece impresión bidireccional (1m/min). Perfecto para patrones en confección de ropa. Para talleres que trabajan con prendas de gran tamaño.",
     },
