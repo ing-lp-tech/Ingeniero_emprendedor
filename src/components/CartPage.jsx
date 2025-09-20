@@ -4,6 +4,8 @@ import { ShoppingBag, ArrowLeft } from "lucide-react";
 const CartPage = ({ cart, removeFromCart }) => {
   const total = cart.reduce((sum, item) => sum + item.price, 0);
 
+  console.log(cart);
+
   return (
     <div className="py-8 px-4">
       <div className="flex items-center mb-8">
@@ -55,7 +57,7 @@ const CartPage = ({ cart, removeFromCart }) => {
                   <p className="text-base sm:text-lg font-bold mt-2">
                     <div className="flex items-center justify-around mt-2">
                       <p className="text-lg font-bold">
-                        ${item.price.toLocaleString()}
+                        ${(item.price * item.quantity).toLocaleString()}
                       </p>
                       <button
                         onClick={() => removeFromCart(item.cartItemId)}

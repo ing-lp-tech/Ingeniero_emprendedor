@@ -1,16 +1,363 @@
 import { useEffect, useState } from "react";
-import { products } from "../constants";
-import { plotters } from "../constants";
-import { pcs } from "../constants";
-import { kitCameras } from "../constants";
-import { imouCams } from "../constants";
-import { ShoppingCart, Filter, X } from "lucide-react";
+import { products, plotters, pcs, kitCameras, imouCams } from "../constants";
+import { ShoppingCart, Filter, X, ZoomIn } from "lucide-react";
 import { Link } from "react-router-dom";
+
+// Componente Modal para visualización ampliada
+const ProductModal = ({
+  product,
+  category,
+  dolarOficial,
+  onClose,
+  addToCart,
+}) => {
+  if (!product) return null;
+
+  // Función para renderizar el contenido específico según la categoría
+  const renderProductDetails = () => {
+    switch (category) {
+      case "plotters":
+        return (
+          <div className="space-y-4">
+            <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
+              <div>
+                <p className="font-semibold">Pre-venta (USD):</p>
+                <p>${product.precio_pre_venta.toLocaleString()}</p>
+                <p className="text-sm text-gray-600">
+                  Pesos: $
+                  {dolarOficial
+                    ? (product.precio_pre_venta * dolarOficial).toLocaleString()
+                    : "Cargando..."}
+                </p>
+              </div>
+              <button
+                onClick={() => {
+                  addToCart({
+                    ...product,
+                    quantity: 1,
+                    price: product.precio_pre_venta * dolarOficial,
+                    name: product.nombre,
+                  });
+                  onClose();
+                }}
+                className="bg-blue-600 text-white px-3 py-2 rounded hover:bg-blue-700 transition"
+              >
+                Añadir al carrito
+              </button>
+            </div>
+
+            <div className="flex justify-between items-center p-3 bg-green-50 rounded-lg">
+              <div>
+                <p className="font-semibold">Stock actual (USD):</p>
+                <p>${product.precio_de_llegada.toLocaleString()}</p>
+                <p className="text-sm text-gray-600">
+                  Pesos: $
+                  {dolarOficial
+                    ? (
+                        product.precio_de_llegada * dolarOficial
+                      ).toLocaleString()
+                    : "Cargando..."}
+                </p>
+              </div>
+              <button
+                onClick={() => {
+                  addToCart({
+                    ...product,
+                    quantity: 1,
+                    price: product.precio_de_llegada * dolarOficial,
+                    name: product.nombre,
+                  });
+                  onClose();
+                }}
+                className="bg-green-600 text-white px-3 py-2 rounded hover:bg-green-700 transition"
+              >
+                Añadir al carrito
+              </button>
+            </div>
+          </div>
+        );
+
+      case "papers":
+        return (
+          <div className="space-y-3">
+            {Object.entries(product.combos).map(([combo, price]) => (
+              <div
+                key={combo}
+                className="flex justify-between items-center p-3 bg-blue-50 rounded-lg"
+              >
+                <div>
+                  <p className="font-semibold capitalize">
+                    {combo.replace(/([A-Z])/g, " $1")}:
+                  </p>
+                  <p>${price.toLocaleString()}</p>
+                </div>
+                <button
+                  onClick={() => {
+                    const quantity = parseInt(
+                      combo.replace("combo", "").replace("u", "")
+                    );
+                    addToCart({
+                      ...product,
+                      quantity,
+                      price,
+                    });
+                    onClose();
+                  }}
+                  className="bg-blue-600 text-white px-3 py-2 rounded hover:bg-blue-700 transition"
+                >
+                  Añadir al carrito
+                </button>
+              </div>
+            ))}
+          </div>
+        );
+
+      case "pcs":
+        return (
+          <div className="space-y-4">
+            <div className="text-sm text-gray-700 space-y-2 text-left mb-4">
+              <p>
+                <strong>Procesador:</strong> {product.specs.procesador}
+              </p>
+              <p>
+                <strong>Gráficos:</strong> {product.specs.graficos}
+              </p>
+              <p>
+                <strong>RAM:</strong> {product.specs.ram}
+              </p>
+              <p>
+                <strong>Almacenamiento:</strong> {product.specs.almacenamiento}
+              </p>
+              <p>
+                <strong>Mother:</strong> {product.specs.mother}
+              </p>
+              <p>
+                <strong>Sistema:</strong> {product.specs.sistema}
+              </p>
+            </div>
+
+            <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
+              <div>
+                <p className="font-semibold">Combo Básico:</p>
+                <p>${product.combos.basico.toLocaleString()}</p>
+              </div>
+              <button
+                onClick={() => {
+                  addToCart({
+                    ...product,
+                    quantity: 1,
+                    price: product.combos.basico,
+                  });
+                  onClose();
+                }}
+                className="bg-blue-600 text-white px-3 py-2 rounded hover:bg-blue-700 transition"
+              >
+                Añadir al carrito
+              </button>
+            </div>
+
+            <div className="flex justify-between items-center p-3 bg-green-50 rounded-lg">
+              <div>
+                <p className="font-semibold">Con Monitor:</p>
+                <p>${product.combos.conMonitor.toLocaleString()}</p>
+              </div>
+              <button
+                onClick={() => {
+                  addToCart({
+                    ...product,
+                    quantity: 1,
+                    price: product.combos.conMonitor,
+                  });
+                  onClose();
+                }}
+                className="bg-green-600 text-white px-3 py-2 rounded hover:bg-green-700 transition"
+              >
+                Añadir al carrito
+              </button>
+            </div>
+          </div>
+        );
+
+      case "kitCameras":
+        return (
+          <div className="space-y-4">
+            <div className="text-sm text-gray-700 space-y-2 text-left mb-4">
+              <p>
+                <strong>DVR:</strong> {product.specs.dvr}
+              </p>
+              <p>
+                <strong>Cámaras:</strong> {product.specs.cameras}
+              </p>
+              <p>
+                <strong>Balunes:</strong> {product.specs.baluns}
+              </p>
+              <p>
+                <strong>Plugs:</strong> {product.specs.plugs}
+              </p>
+              <p>
+                <strong>Splitter:</strong> {product.specs.splitter}
+              </p>
+              <p>
+                <strong>Cable:</strong> {product.specs.cable}
+              </p>
+              <p>
+                <strong>Fuente:</strong> {product.specs.power}
+              </p>
+            </div>
+
+            <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
+              <div>
+                <p className="font-semibold">Kit:</p>
+                <p>
+                  $
+                  {dolarOficial
+                    ? (product.price * dolarOficial).toLocaleString()
+                    : "Cargando..."}
+                </p>
+              </div>
+              <button
+                onClick={() => {
+                  addToCart({
+                    ...product,
+                    quantity: 1,
+                    price: product.price * dolarOficial,
+                    name: product.name,
+                  });
+                  onClose();
+                }}
+                className="bg-blue-600 text-white px-3 py-2 rounded hover:bg-blue-700 transition"
+              >
+                Añadir al carrito
+              </button>
+            </div>
+
+            <div className="flex justify-between items-center p-3 bg-green-50 rounded-lg">
+              <div>
+                <p className="font-semibold">+ instalación:</p>
+                <p>
+                  $
+                  {dolarOficial
+                    ? (product.price * dolarOficial * 1.6).toLocaleString()
+                    : "Cargando..."}
+                </p>
+              </div>
+              <button
+                onClick={() => {
+                  addToCart({
+                    ...product,
+                    quantity: 1,
+                    price: product.price * dolarOficial * 1.6,
+                    name: product.name,
+                  });
+                  onClose();
+                }}
+                className="bg-green-600 text-white px-3 py-2 rounded hover:bg-green-700 transition"
+              >
+                Añadir al carrito
+              </button>
+            </div>
+          </div>
+        );
+
+      case "imouCams":
+        return (
+          <div className="space-y-4">
+            <div className="text-sm text-gray-700 space-y-2 text-left mb-4">
+              {Object.entries(product.specs).map(([key, value]) => (
+                <p key={key}>
+                  <strong>{key.charAt(0).toUpperCase() + key.slice(1)}:</strong>{" "}
+                  {value}
+                </p>
+              ))}
+            </div>
+
+            <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
+              <div>
+                <p className="font-semibold">Unidad:</p>
+                <p>
+                  $
+                  {dolarOficial
+                    ? (product.price * dolarOficial).toLocaleString()
+                    : "Cargando..."}
+                </p>
+              </div>
+              <button
+                onClick={() => {
+                  addToCart({
+                    ...product,
+                    quantity: 1,
+                    price: product.price * dolarOficial,
+                    name: product.name,
+                  });
+                  onClose();
+                }}
+                className="bg-blue-600 text-white px-3 py-2 rounded hover:bg-blue-700 transition flex items-center gap-1"
+              >
+                <ShoppingCart size={16} />
+                Añadir al carrito
+              </button>
+            </div>
+          </div>
+        );
+
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-75 z-50 flex items-center justify-center p-4">
+      <div className="bg-white rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+        <div className="sticky top-0 bg-white p-4 border-b flex justify-between items-center">
+          <h2 className="text-xl font-bold">
+            {product.nombre || product.name}
+          </h2>
+          <button
+            onClick={onClose}
+            className="text-gray-500 hover:text-gray-700 p-1 rounded-full hover:bg-gray-100"
+            aria-label="Cerrar"
+          >
+            <X size={24} />
+          </button>
+        </div>
+
+        <div className="p-6">
+          <div className="flex flex-col md:flex-row gap-6">
+            <div className="md:w-1/2">
+              <div className="h-64 md:h-96 overflow-hidden rounded-lg bg-gray-100 flex items-center justify-center">
+                <img
+                  src={product.image}
+                  alt={product.nombre || product.name}
+                  className="max-h-full max-w-full object-contain"
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src =
+                      "https://via.placeholder.com/500x300?text=Imagen+no+disponible";
+                  }}
+                />
+              </div>
+            </div>
+
+            <div className="md:w-1/2">
+              <p className="text-gray-600 mb-4">
+                {product.descripcion || product.description}
+              </p>
+
+              {renderProductDetails()}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const ProductSection = ({ id, cart, addToCart }) => {
   const [dolarOficial, setDolarOficial] = useState(null);
   const [activeFilter, setActiveFilter] = useState("all");
   const [showFilters, setShowFilters] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
   const allPlotters = [...plotters.inyeccion, ...plotters.corte];
 
@@ -19,7 +366,6 @@ const ProductSection = ({ id, cart, addToCart }) => {
       try {
         const res = await fetch("https://dolarapi.com/v1/dolares/oficial");
         const data = await res.json();
-        console.log("Dólar Oficial:", data.venta);
         setDolarOficial(data.venta);
       } catch (error) {
         console.error("Error al obtener la cotización:", error);
@@ -29,22 +375,21 @@ const ProductSection = ({ id, cart, addToCart }) => {
     fetchDolar();
   }, []);
 
-  // Función para manejar el cambio de filtro
   const handleFilterChange = (filter) => {
     setActiveFilter(filter);
-    // Ocultar el panel de filtros en móviles después de seleccionar
     if (window.innerWidth < 768) {
       setShowFilters(false);
     }
   };
 
-  // Filtrar productos según el filtro activo
-  const filteredProducts = {
-    plotters: allPlotters,
-    papers: products,
-    pcs: pcs,
-    kitCameras: kitCameras.kits,
-    imouCams: imouCams.imous,
+  const handleProductClick = (product, category) => {
+    setSelectedProduct(product);
+    setSelectedCategory(category);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedProduct(null);
+    setSelectedCategory(null);
   };
 
   return (
@@ -150,6 +495,15 @@ const ProductSection = ({ id, cart, addToCart }) => {
           </div>
         </div>
 
+        {/* Modal para vista ampliada */}
+        <ProductModal
+          product={selectedProduct}
+          category={selectedCategory}
+          dolarOficial={dolarOficial}
+          onClose={handleCloseModal}
+          addToCart={addToCart}
+        />
+
         {/* Sección de Plotters */}
         {(activeFilter === "all" || activeFilter === "plotters") && (
           <div className="mt-16 text-center">
@@ -162,9 +516,10 @@ const ProductSection = ({ id, cart, addToCart }) => {
               {allPlotters.map((plotter) => (
                 <div
                   key={plotter.id}
-                  className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition"
+                  className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition cursor-pointer"
+                  onClick={() => handleProductClick(plotter, "plotters")}
                 >
-                  <div className="h-48 overflow-hidden">
+                  <div className="h-48 overflow-hidden relative">
                     <img
                       src={plotter.image}
                       alt={plotter.nombre}
@@ -175,6 +530,9 @@ const ProductSection = ({ id, cart, addToCart }) => {
                           "https://via.placeholder.com/300x200?text=Plotter+Image";
                       }}
                     />
+                    <div className="absolute top-2 right-2 bg-black bg-opacity-50 text-white p-1 rounded">
+                      <ZoomIn size={16} />
+                    </div>
                   </div>
 
                   <div className="p-6 flex flex-col justify-between h-full">
@@ -194,7 +552,7 @@ const ProductSection = ({ id, cart, addToCart }) => {
                         </span>
                       </div>
 
-                      <p className="mt-2 text-gray-600">
+                      <p className="mt-2 text-gray-600 line-clamp-2">
                         {plotter.descripcion}
                       </p>
 
@@ -206,23 +564,16 @@ const ProductSection = ({ id, cart, addToCart }) => {
                             </span>{" "}
                             ${plotter.precio_pre_venta.toLocaleString()}
                           </p>
-                          <p>
-                            <span className="font-semibold">pesos:</span> $
-                            {dolarOficial
-                              ? (
-                                  plotter.precio_pre_venta * dolarOficial
-                                ).toLocaleString()
-                              : "Cargando..."}
-                          </p>
                           <button
-                            onClick={() =>
+                            onClick={(e) => {
+                              e.stopPropagation();
                               addToCart({
                                 ...plotter,
                                 quantity: 1,
                                 price: plotter.precio_pre_venta * dolarOficial,
                                 name: plotter.nombre,
-                              })
-                            }
+                              });
+                            }}
                             className="bg-blue-600 text-white text-xs px-3 py-1 rounded hover:bg-blue-700 transition"
                           >
                             Añadir
@@ -235,23 +586,16 @@ const ProductSection = ({ id, cart, addToCart }) => {
                             </span>{" "}
                             ${plotter.precio_de_llegada.toLocaleString()}
                           </p>
-                          <p>
-                            <span className="font-semibold">pesos:</span> $
-                            {dolarOficial
-                              ? (
-                                  plotter.precio_de_llegada * dolarOficial
-                                ).toLocaleString()
-                              : "Cargando..."}
-                          </p>
                           <button
-                            onClick={() =>
+                            onClick={(e) => {
+                              e.stopPropagation();
                               addToCart({
                                 ...plotter,
                                 quantity: 1,
                                 price: plotter.precio_de_llegada * dolarOficial,
                                 name: plotter.nombre,
-                              })
-                            }
+                              });
+                            }}
                             className="bg-green-600 text-white text-xs px-3 py-1 rounded hover:bg-green-700 transition"
                           >
                             Añadir
@@ -278,14 +622,18 @@ const ProductSection = ({ id, cart, addToCart }) => {
               {products.map((product) => (
                 <div
                   key={product.id}
-                  className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition"
+                  className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition cursor-pointer"
+                  onClick={() => handleProductClick(product, "papers")}
                 >
-                  <div className="h-48 overflow-hidden">
+                  <div className="h-48 overflow-hidden relative">
                     <img
                       src={product.image}
                       alt={product.name}
                       className="w-full h-full object-cover"
                     />
+                    <div className="absolute top-2 right-2 bg-black bg-opacity-50 text-white p-1 rounded">
+                      <ZoomIn size={16} />
+                    </div>
                   </div>
 
                   <div className="p-6 flex flex-col justify-between h-full">
@@ -299,7 +647,7 @@ const ProductSection = ({ id, cart, addToCart }) => {
                         </span>
                       </div>
 
-                      <p className="mt-2 text-gray-600">
+                      <p className="mt-2 text-gray-600 line-clamp-2">
                         {product.description}
                       </p>
 
@@ -309,13 +657,14 @@ const ProductSection = ({ id, cart, addToCart }) => {
                             Combo 5u: ${product.combos.combo5u.toLocaleString()}
                           </p>
                           <button
-                            onClick={() =>
+                            onClick={(e) => {
+                              e.stopPropagation();
                               addToCart({
                                 ...product,
                                 quantity: 5,
                                 price: product.combos.combo5u,
-                              })
-                            }
+                              });
+                            }}
                             className="bg-blue-600 text-white text-xs px-3 py-1 rounded hover:bg-blue-700"
                           >
                             Añadir
@@ -327,13 +676,14 @@ const ProductSection = ({ id, cart, addToCart }) => {
                             {product.combos.combo15u.toLocaleString()}
                           </p>
                           <button
-                            onClick={() =>
+                            onClick={(e) => {
+                              e.stopPropagation();
                               addToCart({
                                 ...product,
                                 quantity: 15,
                                 price: product.combos.combo15u,
-                              })
-                            }
+                              });
+                            }}
                             className="bg-blue-600 text-white text-xs px-3 py-1 rounded hover:bg-blue-700"
                           >
                             Añadir
@@ -345,13 +695,14 @@ const ProductSection = ({ id, cart, addToCart }) => {
                             {product.combos.combo30u.toLocaleString()}
                           </p>
                           <button
-                            onClick={() =>
+                            onClick={(e) => {
+                              e.stopPropagation();
                               addToCart({
                                 ...product,
                                 quantity: 30,
                                 price: product.combos.combo30u,
-                              })
-                            }
+                              });
+                            }}
                             className="bg-blue-600 text-white text-xs px-3 py-1 rounded hover:bg-blue-700"
                           >
                             Añadir
@@ -378,14 +729,18 @@ const ProductSection = ({ id, cart, addToCart }) => {
               {pcs.map((pc) => (
                 <div
                   key={pc.id}
-                  className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition"
+                  className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition cursor-pointer"
+                  onClick={() => handleProductClick(pc, "pcs")}
                 >
-                  <div className="h-48 overflow-hidden flex items-center justify-center bg-gray-100">
+                  <div className="h-48 overflow-hidden flex items-center justify-center bg-gray-100 relative">
                     <img
                       src={pc.image}
                       alt={pc.name}
                       className="max-w-full object-contain"
                     />
+                    <div className="absolute top-2 right-2 bg-black bg-opacity-50 text-white p-1 rounded">
+                      <ZoomIn size={16} />
+                    </div>
                   </div>
 
                   <div className="p-6 flex flex-col justify-between h-full">
@@ -399,7 +754,9 @@ const ProductSection = ({ id, cart, addToCart }) => {
                         </span>
                       </div>
 
-                      <p className="mt-2 text-gray-600">{pc.description}</p>
+                      <p className="mt-2 text-gray-600 line-clamp-2">
+                        {pc.description}
+                      </p>
 
                       <div className="mt-4 text-sm text-gray-700 space-y-1 text-left">
                         <p>
@@ -429,13 +786,14 @@ const ProductSection = ({ id, cart, addToCart }) => {
                             Combo Básico: ${pc.combos.basico.toLocaleString()}
                           </p>
                           <button
-                            onClick={() =>
+                            onClick={(e) => {
+                              e.stopPropagation();
                               addToCart({
                                 ...pc,
                                 quantity: 1,
                                 price: pc.combos.basico,
-                              })
-                            }
+                              });
+                            }}
                             className="bg-blue-600 text-white text-xs px-3 py-1 rounded hover:bg-blue-700"
                           >
                             Añadir
@@ -447,13 +805,14 @@ const ProductSection = ({ id, cart, addToCart }) => {
                             {pc.combos.conMonitor.toLocaleString()}
                           </p>
                           <button
-                            onClick={() =>
+                            onClick={(e) => {
+                              e.stopPropagation();
                               addToCart({
                                 ...pc,
                                 quantity: 1,
                                 price: pc.combos.conMonitor,
-                              })
-                            }
+                              });
+                            }}
                             className="bg-blue-600 text-white text-xs px-3 py-1 rounded hover:bg-blue-700"
                           >
                             Añadir
@@ -481,19 +840,23 @@ const ProductSection = ({ id, cart, addToCart }) => {
               {kitCameras.kits.map((kit) => (
                 <div
                   key={kit.id}
-                  className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition"
+                  className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition cursor-pointer"
+                  onClick={() => handleProductClick(kit, "kitCameras")}
                 >
-                  <div className="-48 overflow-hidden">
+                  <div className="h-48 overflow-hidden relative">
                     <img
                       src={kit.image}
                       alt={kit.name}
-                      className="h-full object-cover"
+                      className="h-full object-cover w-full"
                       onError={(e) => {
                         e.target.onerror = null;
                         e.target.src =
                           "https://via.placeholder.com/300x200?text=Kit+de+Cámaras";
                       }}
                     />
+                    <div className="absolute top-2 right-2 bg-black bg-opacity-50 text-white p-1 rounded">
+                      <ZoomIn size={16} />
+                    </div>
                   </div>
 
                   <div className="p-6 flex flex-col justify-between h-full">
@@ -507,7 +870,9 @@ const ProductSection = ({ id, cart, addToCart }) => {
                         </span>
                       </div>
 
-                      <p className="mt-2 text-gray-600">{kit.description}</p>
+                      <p className="mt-2 text-gray-600 line-clamp-2">
+                        {kit.description}
+                      </p>
 
                       <div className="mt-4 text-sm text-gray-700 space-y-2">
                         <div className="flex items-center justify-between">
@@ -519,14 +884,15 @@ const ProductSection = ({ id, cart, addToCart }) => {
                           </p>
 
                           <button
-                            onClick={() =>
+                            onClick={(e) => {
+                              e.stopPropagation();
                               addToCart({
                                 ...kit,
                                 quantity: 1,
                                 price: kit.price * dolarOficial,
                                 name: kit.name,
-                              })
-                            }
+                              });
+                            }}
                             className="bg-blue-600 text-white text-xs px-3 py-1 rounded hover:bg-blue-700 transition"
                           >
                             Añadir
@@ -547,14 +913,15 @@ const ProductSection = ({ id, cart, addToCart }) => {
                               : "Cargando..."}
                           </p>
                           <button
-                            onClick={() =>
+                            onClick={(e) => {
+                              e.stopPropagation();
                               addToCart({
                                 ...kit,
                                 quantity: 1,
                                 price: kit.price * dolarOficial * 1.6,
                                 name: kit.name,
-                              })
-                            }
+                              });
+                            }}
                             className="bg-blue-600 text-white text-xs px-3 py-1 rounded hover:bg-blue-700 transition"
                           >
                             Añadir
@@ -607,10 +974,11 @@ const ProductSection = ({ id, cart, addToCart }) => {
               {imouCams.imous.map((cam) => (
                 <div
                   key={cam.id}
-                  className="bg-white rounded-2xl shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition"
+                  className="bg-white rounded-2xl shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition cursor-pointer"
+                  onClick={() => handleProductClick(cam, "imouCams")}
                 >
                   {/* Imagen */}
-                  <div className="h-56 bg-gray-50 flex items-center justify-center">
+                  <div className="h-56 bg-gray-50 flex items-center justify-center relative">
                     <img
                       src={cam.image}
                       alt={cam.name}
@@ -621,6 +989,9 @@ const ProductSection = ({ id, cart, addToCart }) => {
                           "https://via.placeholder.com/300x200?text=Cámara+IMOU";
                       }}
                     />
+                    <div className="absolute top-2 right-2 bg-black bg-opacity-50 text-white p-1 rounded">
+                      <ZoomIn size={16} />
+                    </div>
                   </div>
 
                   {/* Contenido */}
@@ -636,7 +1007,7 @@ const ProductSection = ({ id, cart, addToCart }) => {
                     </div>
 
                     {/* Descripción */}
-                    <p className="mt-3 text-gray-600 text-sm">
+                    <p className="mt-3 text-gray-600 text-sm line-clamp-2">
                       {cam.description}
                     </p>
 
@@ -650,15 +1021,15 @@ const ProductSection = ({ id, cart, addToCart }) => {
                             : "Cargando..."}
                         </p>
                         <button
-                          onClick={() =>
+                          onClick={(e) => {
+                            e.stopPropagation();
                             addToCart({
                               ...cam,
                               quantity: 1,
                               price: cam.price * dolarOficial,
-
                               name: cam.name,
-                            })
-                          }
+                            });
+                          }}
                           className="flex items-center gap-1 bg-green-600 text-white text-xs px-3 py-1.5 rounded hover:bg-green-700 transition"
                         >
                           <ShoppingCart size={14} />

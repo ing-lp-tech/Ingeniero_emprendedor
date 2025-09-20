@@ -1,12 +1,10 @@
-import { div } from "framer-motion/client";
-import logoLucfra from "../assets/lucfra.jpg";
+import { motion } from "framer-motion";
 import plotter2 from "../assets/plotter2.jpg";
 import React, { useState } from "react";
 import avatarLuisPatty from "../assets/avatarLuisPattyJpg.jpg";
-import logoluisys from "../assets/LogoLuisys.png";
 import llegoIngeJPG from "../assets/llegoIngepng.png";
 
-const HeroSection = ({ id }) => {
+const HeroSection = ({ id, dolarOficial }) => {
   const phoneNumber = "5491162020911";
   const defaultMessage = "Hola, me gustaría obtener más información.";
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
@@ -18,115 +16,39 @@ const HeroSection = ({ id }) => {
   const [image, setImage] = useState(null);
   const [message, setMessage] = useState(""); // estado para mostrar mensaje de éxito/error
 
-  const createProduct = async (formData) => {
-    try {
-      const res = await fetch(API_URL, {
-        method: "POST",
-        body: formData,
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data?.error?.message || "Error al crear producto");
-      }
-
-      return data;
-    } catch (err) {
-      throw err; // lo manejamos en handleSubmit
-    }
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setMessage("");
-
-    if (!image) {
-      setMessage("Por favor, seleccioná una imagen.");
-      return;
-    }
-
-    const data = new FormData();
-    data.append("name", form.name);
-    data.append("description", form.description);
-    data.append("price", form.price);
-    data.append("image", image);
-
-    try {
-      const response = await createProduct(data);
-      console.log("Producto creado:", response);
-      setMessage("✅ Producto creado exitosamente.");
-      setForm({ name: "", description: "", price: "" });
-      setImage(null);
-    } catch (error) {
-      console.error("Error al crear producto:", error.message);
-      setMessage("❌ Error: " + error.message);
-    }
-  };
-
   return (
     <>
-      {/* <div className="py-6">
-        <form
-          onSubmit={handleSubmit}
-          className="flex flex-col gap-2 max-w-md mx-auto border p-4 rounded-lg shadow"
-        >
-          <h2 className="text-xl font-semibold mb-2">Subir nuevo producto</h2>
-          <input
-            type="text"
-            placeholder="Nombre"
-            value={form.name}
-            onChange={(e) => setForm({ ...form, name: e.target.value })}
-            required
-            className="border p-2 rounded"
-          />
-          <textarea
-            placeholder="Descripción"
-            value={form.description}
-            onChange={(e) => setForm({ ...form, description: e.target.value })}
-            required
-            className="border p-2 rounded"
-          />
-          <input
-            type="number"
-            placeholder="Precio"
-            value={form.price}
-            onChange={(e) => setForm({ ...form, price: e.target.value })}
-            required
-            className="border p-2 rounded"
-          />
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(e) => setImage(e.target.files[0])}
-            className="border p-2 rounded"
-          />
-          <button
-            type="submit"
-            className="bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
-          >
-            Subir producto
-          </button>
-          {message && (
-            <p
-              className={`mt-2 text-sm ${
-                message.startsWith("✅") ? "text-green-600" : "text-red-600"
-              }`}
-            >
-              {message}
-            </p>
-          )}
-        </form>
-      </div> */}
-
       <div id={id} className="flex flex-col items-center mt-6 mb-0 lg:mt-10">
+        {/* Mostrar dólar oficial con animación circular */}
+        {dolarOficial && (
+          <motion.div
+            className="mt-6 text-center"
+            animate={{
+              x: [0, 20, 0, -20, 0],
+              y: [0, -10, 0, 10, 0],
+            }}
+            transition={{
+              duration: 6,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          >
+            <p className="text-lg sm:text-xl font-semibold text-gray-800">
+              💵 Cotización dólar oficial{" "}
+              <span className="text-gray-600">(Banco Nación)</span>:
+              <span className="ml-2 text-blue-600 text-2xl">
+                ${dolarOficial}
+              </span>
+            </p>
+          </motion.div>
+        )}
         <div className="bg-gradient-to-b from-blue-50 to-white py-2 px-4 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto">
             <div className="flex flex-col md:flex-row items-center justify-between gap-12">
               <div className="md:w-1/2">
                 <div className="items-center justify-between">
                   <img
-                    className="w-full  "
+                    className="w-full"
                     src={llegoIngeJPG}
                     alt="Plotter industrial en funcionamiento"
                   />
@@ -143,10 +65,7 @@ const HeroSection = ({ id }) => {
                   especializado para tizado.
                 </p>
 
-                <div className="flex flex-col sm:flex-row gap-4">
-                  {/* <button className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105">
-                    Ver Catálogo Completo
-                  </button> */}
+                <div className="flex flex-col sm:flex-row gap-4 justify-center sm:justify-start">
                   <button className="border border-blue-600 text-blue-600 hover:bg-blue-50 font-medium py-3 px-6 rounded-lg transition duration-300">
                     <a href={whatsappUrl}>Solicitar Asesoría Técnica</a>
                   </button>
@@ -156,12 +75,6 @@ const HeroSection = ({ id }) => {
                   <div className="flex -space-x-2">
                     {/* Iconos de clientes o marcas */}
                   </div>
-                  {/* <div className="text-sm text-gray-500">
-                    <span className="font-semibold text-gray-700">
-                      +100 talleres
-                    </span>{" "}
-                    confían en nuestros productos
-                  </div> */}
                 </div>
               </div>
 
@@ -176,7 +89,7 @@ const HeroSection = ({ id }) => {
             </div>
 
             {/* Logos de marcas o certificaciones */}
-            <div className="mt-20 ">
+            <div className="mt-20">
               <h3 className="text-center text-gray-500 text-sm font-medium mb-6">
                 TRABAJAMOS CON LAS MEJORES MARCAS
               </h3>
