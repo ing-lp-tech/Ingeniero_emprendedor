@@ -232,7 +232,7 @@ export default function ImportCalculator() {
     honorarios: 450,
     certificaciones: 350,
     unidades: 200,
-    multiplicador: 2.2,
+    multiplicador: 1.3,
     precioVentaManual: 0,
     unidadesMes: 50,
     dumpingPct: 0,
@@ -490,11 +490,11 @@ export default function ImportCalculator() {
                   note="Multiplicador sobre costo para precio de venta"
                 />
                 <ButtonGroup sx={{ mt: 1 }}>
-                  <Button onClick={() => handleMultiplierPreset(2)}>x2</Button>
-                  <Button onClick={() => handleMultiplierPreset(2.5)}>
-                    x2.5
+                  <Button onClick={() => handleMultiplierPreset(1.5)}>
+                    x1.5
                   </Button>
-                  <Button onClick={() => handleMultiplierPreset(3)}>x3</Button>
+                  <Button onClick={() => handleMultiplierPreset(2)}>x2</Button>
+                  {/*  <Button onClick={() => handleMultiplierPreset(3)}>x3</Button> */}
                 </ButtonGroup>
               </Grid>
               <Grid item xs={12} sm={6}>
