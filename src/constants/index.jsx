@@ -121,7 +121,7 @@ export const kitCameras = {
       category: "Seguridad",
       description:
         "Kit de videovigilancia + instalación completa con DVR Dahua de 8 canales y 8 cámaras bullet B1A21P. Incluye balunes, conectores, splitter, cable UTP de 120mts y fuente de alimentación.",
-      price: 290, // precio base (ejemplo, ajustalo)
+      price: 350, // precio base (ejemplo, ajustalo)
       image: kit8cam, // import de la imagen optimizada
       combos: {
         kit: 320000,
