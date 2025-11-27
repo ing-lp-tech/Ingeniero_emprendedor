@@ -99,7 +99,7 @@ export const kitCameras = {
       category: "Seguridad",
       description:
         "Kit de videovigilancia + instalación completa con DVR Dahua de 4 canales y 4 cámaras bullet B1A21P. Incluye balunes, conectores, splitter, cable UTP de 60mts y fuente de alimentación.",
-      price: 170, // precio base (ejemplo, ajustalo)
+      price: 190, // precio base (ejemplo, ajustalo)
       image: kit4cam, // import de la imagen optimizada
       combos: {
         kit: 185000,
@@ -348,7 +348,8 @@ export const plotters = {
       nombre: "Inject Plotter 200cm HP45",
       image: injectplotterhp45,
       precio_pre_venta: 3294,
-      precio_de_llegada: 4500,
+      /* precio_de_llegada: 4500, */
+      precio_de_llegada: 4300,
       descripcion:
         "Plotter de inyección de tinta de 200cm con tecnología HP45 para tizado de patrones de ropa. Imprime en ambos sentidos (1m/min) . Ideal para talleres con alta demanda de producción. Para talleres que trabajan con prendas de gran tamaño.",
     },
@@ -357,7 +358,8 @@ export const plotters = {
       nombre: "Inject Plotter 200cm EPSON",
       image: injectplotterepson,
       precio_pre_venta: 3485,
-      precio_de_llegada: 4800,
+      /* precio_de_llegada: 4800, */
+      precio_de_llegada: 4500,
       descripcion:
         "Plotter profesional de 190cm con cabezales Epson RECARGABLES para tizado textil. Ofrece impresión bidireccional (1m/min). Perfecto para patrones en confección de ropa. Para talleres que trabajan con prendas de gran tamaño.",
     },

@@ -558,12 +558,12 @@ const ProductSection = ({ id, cart, addToCart }) => {
 
                       <div className="mt-4 text-sm text-gray-700 space-y-2">
                         <div className="flex items-center justify-between">
-                          <p>
+                          {/* <p>
                             <span className="font-semibold">
                               Pre-venta(usd):
                             </span>{" "}
                             ${plotter.precio_pre_venta.toLocaleString()}
-                          </p>
+                          </p> */}
                           <button
                             onClick={(e) => {
                               e.stopPropagation();
